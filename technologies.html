@@ -3,19 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kullandığım Teknolojiler</title>
+    <title>Kullandığım Teknolojiler - Ramazan Aydın Kocaer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <a href="index.html">Hakkımda</a> | 
-        <a href="technologies.html">Teknolojiler</a> | 
-        <a href="projects.html">Projeler ve Haritalar</a>
-    </nav>
+    <header>
+        <nav>
+            <a href="index.html">Hakkımda</a>
+            <a href="technologies.html">Teknolojiler</a>
+            <a href="maps.html">Bulunduğum Yerler</a>
+        </nav>
+    </header>
     
-    <main>
-        <h2>Teknolojiler ve Yetenekler</h2>
-        <!-- CSS ve Tablo adımında buraya resimli bir tablo ekleyeceğiz -->
+    <main class="container">
+        <h1 class="animated-title">Teknolojiler ve Yetenekler</h1>
+        <p>Aşağıdaki tabloda eğitimim ve projelerim boyunca kullandığım temel teknolojileri görebilirsiniz:</p>
+        
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Teknoloji</th>
+                    <th>Kullanım Alanı</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        <img src="images/python.webp" alt="Python Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>Python</strong>
+                    </td>
+                    <td>Veri analizi, coğrafi analizler ve script yazımı.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/qgis.webp" alt="QGIS Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>QGIS & PostGIS</strong>
+                    </td>
+                    <td>Mekansal analiz, açık kaynak CBS ve veritabanı yönetimi.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/css.jpg" alt="CSS Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>HTML & CSS</strong>
+                    </td>
+                    <td>Web sayfası tasarımı, yapılandırması ve görselleştirmesi.</td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <img src="images/osm.png" alt="OSM Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>OpenStreetMap</strong>
+                    </td>
+                    <td>Açık kaynak harita verisi sağlama ve altlık harita kullanımı.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/leaflet.webp" alt="Leaflet Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>Leaflet</strong>
+                    </td>
+                    <td>Etkileşimli ve hafif web haritaları (Web GIS) oluşturma.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/openlayers.svg" alt="OpenLayers Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>OpenLayers</strong>
+                    </td>
+                    <td>Gelişmiş ve kapsamlı mekansal veri sunumu ve analizi.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/vscode.webp" alt="VS Code Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>VS Code</strong>
+                    </td>
+                    <td>Proje geliştirme, kod yazımı ve versiyon kontrol (Git) süreçleri.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/anaconda.jpg" alt="Anaconda Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>Anaconda</strong>
+                    </td>
+                    <td>Python kütüphaneleri, sanal ortam yönetimi ve veri bilimi araçları.</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="images/pgadmin.png" alt="pgAdmin Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
+                        <strong>pgAdmin</strong>
+                    </td>
+                    <td>PostgreSQL veritabanı yönetimi ve mekansal (spatial) sorgulamalar.</td>
+                </tr>
+            </tbody>
+        </table>
     </main>
 </body>
 </html>

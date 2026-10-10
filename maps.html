@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulunduğum Yerler - Ramazan Aydın Kocaer</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- OpenLayers CSS ve JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1.0/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.1.0/dist/ol.js"></script>
+
+    <!-- Leaflet CSS ve JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        .quick-locations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .loc-btn {
+            background-color: #2b2e33;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .loc-btn:hover {
+            background-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Hakkımda</a>
+            <a href="technologies.html">Teknolojiler</a>
+            <a href="maps.html">Bulunduğum Yerler</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1 class="animated-title">Haritalar ve Konumlar</h1>
+        <p>Projemi oluşturan iki farklı web haritası teknolojisini aşağıda inceleyebilirsiniz.</p>
+        
+        <div class="info-card" style="margin-top: 40px;">
+            <h2>1. OpenLayers (OSM) Haritası - Bulunduğum Şehirler</h2>
+            <div id="ol-map" style="height: 450px; width: 100%; margin-top: 15px; border: 2px solid #2b2e33; border-radius: 12px; z-index: 1;"></div>
+        </div>
+
+        <div class="info-card">
+            <h2>2. Leaflet Haritası - Ankara'nın Önemli Yerleri</h2>
+            <p style="font-size: 14px; color: #6b7280; margin-bottom: 10px;">
+            </p>
+
+            <div class="quick-locations">
+                <button class="loc-btn" onclick="flyToLocation(39.9255, 32.8369, 'Anıtkabir', 16)">Anıtkabir</button>
+                <button class="loc-btn" onclick="flyToLocation(39.8686, 32.7345, 'Hacettepe Üniversitesi', 16)">Hacettepe Üniversitesi</button>
+                <button class="loc-btn" onclick="flyToLocation(39.9208, 32.8541, 'Kızılay Meydanı', 16)">Kızılay Meydanı</button>
+                <button class="loc-btn" onclick="flyToLocation(39.8885, 32.8656, 'Çankaya Köşkü', 16)">Çankaya Köşkü</button>
+                <button class="loc-btn" style="background-color: #6b7280;" onclick="resetAnkaraMap()">Ankara Geneline Dön</button>
+            </div>
+
+            <div id="leaflet-map" style="height: 450px; width: 100%; margin-top: 15px; border: 2px solid #2b2e33; border-radius: 12px; z-index: 1;"></div>
+        </div>
+    </main>
+
+    <script>
+        let leafletMap;
+        let ankaraGroup;
+        const ankaraMarkers = {};
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const cities = [
+                { name: "Konya", coords: [32.4846, 37.8714] }, 
+                { name: "Karaman", coords: [33.2222, 37.1811] },
+                { name: "Ankara", coords: [32.8597, 39.9334] },
+                { name: "Antalya", coords: [30.7133, 36.8969] },
+                { name: "Isparta", coords: [30.5566, 37.7648] },
+                { name: "Mersin", coords: [34.6415, 36.8121] },
+                { name: "Şanlıurfa", coords: [38.7955, 37.1674] },
+                { name: "Kocaeli", coords: [29.9408, 40.7654] },
+                { name: "Çanakkale", coords: [26.4127, 40.1553] },
+                { name: "Afyonkarahisar", coords: [30.5567, 38.7507] },
+                { name: "Adana", coords: [35.3213, 37.0000] }
+            ];
+
+            const features = cities.map(city => {
+                return new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat(city.coords)),
+                    name: city.name
+                });
+            });
+
+            const vectorSource = new ol.source.Vector({ features: features });
+            
+            const vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+                style: function(feature) {
+                    return new ol.style.Style({
+                        image: new ol.style.Circle({
+                            radius: 7,
+                            fill: new ol.style.Fill({color: '#e74c3c'}),
+                            stroke: new ol.style.Stroke({color: '#ffffff', width: 2})
+                        }),
+                        text: new ol.style.Text({
+                            text: feature.get('name'),
+                            font: 'bold 12px Inter, sans-serif',
+                            fill: new ol.style.Fill({ color: '#2b2e33' }),
+                            stroke: new ol.style.Stroke({ color: '#ffffff', width: 3 }),
+                            offsetY: -15
+                        })
+                    });
+                }
+            });
+
+            const olMap = new ol.Map({
+                target: 'ol-map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM({ wrapX: false }) 
+                    }),
+                    vectorLayer
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([35.0, 39.0]),
+                    zoom: 5.5
+                })
+            });
+
+            
+            leafletMap = L.map('leaflet-map').setView([39.9334, 32.8597], 10); 
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                noWrap: true, // Issue 2 Çözümü: Dünyanın tekrar etmesini önler
+                bounds: [[-90, -180], [90, 180]]
+            }).addTo(leafletMap);
+
+            const ankaraPoints = [
+                { name: "Anıtkabir", coords: [39.9255, 32.8369] },
+                { name: "Hacettepe Üniversitesi", coords: [39.8686, 32.7345] },
+                { name: "Kızılay Meydanı", coords: [39.9208, 32.8541] },
+                { name: "Çankaya Köşkü", coords: [39.8885, 32.8656] }
+            ];
+
+            ankaraGroup = L.layerGroup();
+            
+            ankaraPoints.forEach(pt => {
+                const marker = L.marker(pt.coords)
+                 .bindPopup(`<strong style="color:#2b2e33; font-size:14px;">${pt.name}</strong>`);
+                ankaraMarkers[pt.name] = marker; 
+                marker.addTo(ankaraGroup);
+            });
+
+            leafletMap.on('zoomend', function() {
+                if (leafletMap.getZoom() >= 13) {
+                    if (!leafletMap.hasLayer(ankaraGroup)) ankaraGroup.addTo(leafletMap);
+                } else {
+                    if (leafletMap.hasLayer(ankaraGroup)) ankaraGroup.removeFrom(leafletMap);
+                }
+            });
+        });
+
+        function flyToLocation(lat, lng, name, zoomLevel) {
+            // İlgili konuma uç
+            leafletMap.flyTo([lat, lng], zoomLevel, {
+                animate: true,
+                duration: 1.5
+            });
+
+            setTimeout(() => {
+                if (ankaraMarkers[name]) {
+                    ankaraMarkers[name].openPopup();
+                }
+            }, 1600);
+        }
+
+        function resetAnkaraMap() {
+            leafletMap.flyTo([39.9334, 32.8597], 10, { animate: true, duration: 1.5 });
+            leafletMap.closePopup();
+        }
+    </script>
+</body>
+</html>
