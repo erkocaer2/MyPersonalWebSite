@@ -29,7 +29,6 @@
             <h1 style="margin: 0;" class="lang-transition" data-i18n="header-title">Akademik ve Bireysel Projeler</h1>
         </header>
 
-        <!-- Proje 1 -->
         <section id="dide" class="card">
             <h2 class="lang-transition" data-i18n="p1-title">DiDE Projesi: Kampüs İçi Kirlilik Analizi</h2>
             <div class="project-detail">
@@ -43,7 +42,6 @@
             </div>
         </section>
 
-        <!-- Proje 2 -->
         <section id="gee" class="card">
             <h2 class="lang-transition" data-i18n="p2-title">İzmir Yamanlar Dağı Yangın Hasar Tespiti</h2>
             <div class="project-detail">
@@ -57,7 +55,6 @@
             </div>
         </section>
 
-        <!-- Proje 3 (Bitirme Projesi) -->
         <section id="sar" class="card">
             <h2 class="lang-transition" data-i18n="p3-title">SAR Görüntüleri ile Gemi Tespiti (Bitirme Projesi)</h2>
             <div class="project-detail">
@@ -71,31 +68,100 @@
         </section>
     </div>
 
-    <!-- Yüzen İletişim Butonu ve Popup -->
+
     <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
     <div id="contactPopup" class="contact-popup-container">
         <div class="contact-popup-header">
             <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
             <button id="closeContactBtn">&times;</button>
         </div>
-        <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
+        
+
+        <form id="contactForm" action="https://formspree.io/f/xkjobydz" method="POST">
             <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
             <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
             <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
             <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
         </form>
+
+
+        <div id="statusMessage" style="display: none; text-align: center; padding: 20px 0; font-weight: 600; font-size: 14px;"></div>
     </div>
 
     <script>
-        document.getElementById('contactBtn').onclick = function() {
+
+        document.getElementById('contactBtn').onclick = () => {
             var popup = document.getElementById('contactPopup');
             popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
         }
-        document.getElementById('closeContactBtn').onclick = function() {
+
+
+        document.getElementById('closeContactBtn').onclick = () => {
             document.getElementById('contactPopup').style.display = 'none';
+
+            var form = document.getElementById('contactForm');
+            var statusMsg = document.getElementById('statusMessage');
+            if(form) {
+                form.style.display = 'block';
+                form.reset();
+            }
+            if(statusMsg) statusMsg.style.display = 'none';
         }
 
-        // Projeler Sayfası İçin Dil Çeviri Sözlüğü
+   
+        var contactForm = document.getElementById('contactForm');
+        var statusMessage = document.getElementById('statusMessage');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                var data = new FormData(contactForm);
+                fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+  
+                        contactForm.style.display = 'none';
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = '#28a745'; 
+                        statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "Message sent successfully!" : "Mesajınız başarıyla gönderildi!";
+                        contactForm.reset(); 
+                        
+
+                        setTimeout(() => {
+                            document.getElementById('contactPopup').style.display = 'none';
+                            contactForm.style.display = 'block';
+                            statusMessage.style.display = 'none';
+                        }, 3000);
+
+                    } else {
+
+                        contactForm.style.display = 'none';
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = '#dc3545'; 
+                        statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "An error occurred, please try again." : "Bir hata oluştu, lütfen tekrar deneyin.";
+                        
+                        setTimeout(() => {
+                            contactForm.style.display = 'block';
+                            statusMessage.style.display = 'none';
+                        }, 3000);
+                    }
+                }).catch(error => {
+                    contactForm.style.display = 'none';
+                    statusMessage.style.display = 'block';
+                    statusMessage.style.color = '#dc3545';
+                    statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "A connection error occurred." : "Bir bağlantı hatası oluştu.";
+                    
+                    setTimeout(() => {
+                        contactForm.style.display = 'block';
+                        statusMessage.style.display = 'none';
+                    }, 3000);
+                });
+            });
+        }
         const translations = {
             "tr": {
                 "nav-home": "Ana Sayfa",
@@ -159,8 +225,15 @@
             }
         };
 
-        // Animasyonlu Dili Değiştiren Fonksiyon
+
+           
+        let currentLang = localStorage.getItem('selectedLang') || 'tr';
+
+        
         function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('selectedLang', lang);
+
             const elements = document.querySelectorAll('.lang-transition');
             
             elements.forEach(function(el) {
@@ -170,25 +243,31 @@
             setTimeout(function() {
                 document.querySelectorAll('[data-i18n]').forEach(function(element) {
                     const key = element.getAttribute('data-i18n');
-                    if (translations[lang][key]) {
-                        // Eğer etiket "strong" veya "b" içeriyorsa innerHTML, düz metinse innerText kullanıyoruz.
-                        if(element.innerHTML.includes('<strong')) {
-                            element.innerHTML = translations[lang][key].replace(/(Veritabanı Yönetimi|Görselleştirme ve Analiz|Sonuç|Scripting|İndeks Hesaplamaları|Çıktı|Odak Noktası|Mevcut Durum|Database Management|Visualization and Analysis|Outcome|Index Calculations|Focus Area|Current Status):/, "<strong>$1:</strong>");
-                        } else {
-                            element.innerText = translations[lang][key];
-                        }
+                    if (translations[lang] && translations[lang][key]) {
+                        element.innerText = translations[lang][key];
                     }
                 });
                 
-                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
-                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
-                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
+                
+                var formName = document.getElementById('formName');
+                var formEmail = document.getElementById('formEmail');
+                var formMessage = document.getElementById('formMessage');
+                
+                if(formName && translations[lang] && translations[lang]['ph-name']) formName.placeholder = translations[lang]['ph-name'];
+                if(formEmail && translations[lang] && translations[lang]['ph-email']) formEmail.placeholder = translations[lang]['ph-email'];
+                if(formMessage && translations[lang] && translations[lang]['ph-message']) formMessage.placeholder = translations[lang]['ph-message'];
 
                 elements.forEach(function(el) {
                     el.style.opacity = 1;
                 });
             }, 300);
         }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage(currentLang);
+        });
+        
     </script>
 </body>
 </html>

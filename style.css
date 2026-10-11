@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* ================= GENEL AYARLAR ================= */
+
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -14,7 +14,7 @@ h1, h2, h3 {
     margin-top: 0; 
 }
 
-/* ================= NAVİGASYON (MENÜ) ================= */
+
 nav {
     background-color: #2b2d30;
     padding: 15px 30px;
@@ -44,7 +44,7 @@ nav a:hover {
     cursor: pointer; 
 }
 
-/* ================= KARTLAR VE DÜZEN ================= */
+
 .container {
     max-width: 1000px;
     margin: 40px auto;
@@ -52,7 +52,7 @@ nav a:hover {
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 body.panel-open .container {
-    transform: translateX(-325px); /* Yan panel açıldığında haritaları sola kaydırır */
+    transform: translateX(-325px); 
 }
 
 .card {
@@ -80,7 +80,7 @@ body.panel-open .container {
     margin: 0; 
 }
 
-/* ================= PROFİL (HAKKIMDA) ================= */
+
 .profile-wrapper { 
     display: flex; 
     align-items: center; 
@@ -95,7 +95,7 @@ body.panel-open .container {
     border: 4px solid #f8f9fa;
 }
 
-/* ================= EĞİTİM HAYATIM ================= */
+
 .education-list {
     list-style-type: none;
     padding: 0;
@@ -131,7 +131,6 @@ body.panel-open .container {
     font-size: 15px; 
 }
 
-/* ================= TABLO VE LİNKLER ================= */
 table {
     width: 100%;
     border-collapse: separate;
@@ -169,7 +168,7 @@ td img {
     color: #0056b3; 
 }
 
-/* ================= TEKNOLOJİLER ================= */
+
 .tech-container {
     display: flex;
     flex-wrap: wrap;
@@ -195,7 +194,7 @@ td img {
     margin-bottom: 8px; 
 }
 
-/* ================= PROJE DETAYLARI ================= */
+
 .project-detail { 
     margin-top: 15px; 
     border-top: 1px solid #dee2e6; 
@@ -212,7 +211,7 @@ td img {
     margin-bottom: 8px; 
 }
 
-/* ================= HARİTALAR VE BUTONLAR ================= */
+
 .location-buttons { 
     display: flex; 
     flex-wrap: wrap; 
@@ -247,7 +246,7 @@ td img {
     height: 480px; 
 }
 
-/* ================= EKRANIN SAĞINDAN ÇIKAN PANEL ================= */
+
 .side-panel { 
     position: fixed; 
     top: 10vh; 
@@ -271,24 +270,24 @@ td img {
     box-sizing: border-box; 
 }
 
-/* ---> FOTOĞRAF KESİM (CROP) VE ODAK AYARLARI <--- */
+
 .side-panel img { 
     width: 100%; 
     height: 380px; 
-    object-fit: cover; /* Fotoğrafı kutuya tam sığdırır ve fazlalıkları keser (eski şık görünüm) */
-    object-position: center; /* Varsayılan olarak tam ortadan keser */
+    object-fit: cover; 
+    object-position: center;
     border-radius: 12px; 
     margin-bottom: 25px; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
 }
 
-/* Antalya fotoğrafı kesilirken alt tarafa (kumsala/şehre) odaklanması için */
+
 .side-panel img[src*="antalya"] {
     object-position: center bottom;
 }
 
-/* Mersin (Kız Kalesi) fotoğrafı kesilirken ufuk çizgisine doğru odaklanması için */
-/* %40 değeri kalesini tam merkeze yakın bir yere alacaktır, gerekirse bu sayıyı artırıp azaltabilirsin */
+
+
 .side-panel img[src*="mersin"] {
     object-position: center 40%;
 }
@@ -322,7 +321,7 @@ td img {
     color: #e74c3c; 
 }
 
-/* ================= YÜZEN BANA ULAŞIN BUTONU VE POPUP (SOL ALT KÖŞE) ================= */
+
 .floating-btn {
     position: fixed; 
     bottom: 20px; 
@@ -412,7 +411,7 @@ td img {
     background-color: #495057; 
 }
 
-/* ================= ANİMASYONLAR ================= */
+
 .fade-in { 
     animation: fadeIn 1s ease-in-out; 
 }

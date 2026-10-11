@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <title>Haritalar - Ramazan Aydın Kocaer</title>
     <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    
     <style>
         .category-title {
             font-size: 18px;
@@ -33,7 +38,7 @@
         </nav>
         
         <div class="container fade-in">
-            <!-- 1. Harita (Leaflet) -->
+   
             <section class="card">
                 <h2 class="lang-transition" data-i18n="map1-title">Mutlaka Görülmesi Gereken Şehirler (Leaflet)</h2>
                 
@@ -55,23 +60,19 @@
                 </div>
             </section>
 
-            <!-- 2. Harita (OpenLayers) -->
             <section class="card">
                 <h2 class="lang-transition" data-i18n="map2-title">Ankara'da Gezilecek Yerler (OpenLayers)</h2>
                 
-                <!-- TARIHI YERLER KATEGORISI -->
                 <div class="category-section">
                     <h3 class="category-title lang-transition" data-i18n="cat-historical">Tarihi Yerler</h3>
                     <div class="location-buttons lang-transition">
                         <button onclick="goToLocation('anitkabir')" data-i18n="loc-anitkabir">Anıtkabir</button>
                         <button onclick="goToLocation('kale')" data-i18n="loc-kale">Ankara Kalesi</button>
                         <button onclick="goToLocation('meclis')" data-i18n="loc-meclis">1. TBMM (Meclis)</button>
-                        <!-- Çankaya Köşkü Buraya Taşındı -->
                         <button onclick="goToLocation('cankaya')" data-i18n="loc-cankaya">Çankaya Köşkü</button>
                     </div>
                 </div>
 
-                <!-- AVM'LER KATEGORISI -->
                 <div class="category-section">
                     <h3 class="category-title lang-transition" data-i18n="cat-malls">AVM'ler</h3>
                     <div class="location-buttons lang-transition">
@@ -80,7 +81,6 @@
                     </div>
                 </div>
 
-                <!-- EĞLENCE VE SOSYAL ALANLAR KATEGORISI -->
                 <div class="category-section">
                     <h3 class="category-title lang-transition" data-i18n="cat-entertainment">Eğlence ve Sosyal Alanlar</h3>
                     <div class="location-buttons lang-transition">
@@ -99,24 +99,30 @@
                 </div>
             </section>
 
-            <!-- Yüzen İletişim Butonu ve Popup -->
-            <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
-            <div id="contactPopup" class="contact-popup-container">
-                <div class="contact-popup-header">
-                    <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
-                    <button id="closeContactBtn">&times;</button>
-                </div>
-                <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
-                    <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
-                    <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
-                    <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
-                    <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
-                </form>
+
+    <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
+    <div id="contactPopup" class="contact-popup-container">
+        <div class="contact-popup-header">
+            <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
+            <button id="closeContactBtn">&times;</button>
+        </div>
+        
+
+        <form id="contactForm" action="https://formspree.io/f/xkjobydz" method="POST">
+            <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
+            <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
+            <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
+            <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
+        </form>
+
+
+        <div id="statusMessage" style="display: none; text-align: center; padding: 20px 0; font-weight: 600; font-size: 14px;"></div>
+    </div>
+</form>
             </div>
         </div>
     </div>
 
-    <!-- Ekranın Sağından Açılan Genişletilmiş Ortak Panel -->
     <div id="sidePanel" class="side-panel">
         <div class="side-panel-content">
             <button class="close-panel" onclick="closePanel()">&times;</button>
@@ -127,11 +133,12 @@
     </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
     <script src="base.js"></script>
     
     <script>
-        let currentLang = 'tr';
 
         const translations = {
             "tr": {
@@ -155,9 +162,7 @@
                 "desc-mersin": "Uçsuz bucaksız sahilleri, Kızkalesi ve zengin mutfağıyla Akdeniz'in önemli liman kenti.",
                 "desc-trabzon": "Yeşilin her tonunu barındıran yaylaları, Sümela Manastırı ve Karadeniz'in hırçın dalgalarıyla meşhur.",
 
-                "cat-historical": "Tarihi Yerler",
-                "cat-malls": "AVM'ler",
-                "cat-entertainment": "Eğlence ve Sosyal Alanlar",
+                "cat-historical": "Tarihi Yerler", "cat-malls": "AVM'ler", "cat-entertainment": "Eğlence ve Sosyal Alanlar",
 
                 "loc-anitkabir": "Anıtkabir", "loc-kale": "Ankara Kalesi", "loc-meclis": "1. TBMM", "loc-cankaya": "Çankaya Köşkü",
                 "desc-anitkabir": "Ulu Önder Mustafa Kemal Atatürk'ün anıt mezarı. Ankara'nın kalbinde yer alan bağımsızlık sembolü.",
@@ -202,9 +207,7 @@
                 "desc-mersin": "An important Mediterranean port city with its endless beaches, Maiden's Castle, and rich cuisine.",
                 "desc-trabzon": "Famous for its plateaus featuring every shade of green, Sümela Monastery, and the fierce waves of the Black Sea.",
 
-                "cat-historical": "Historical Places",
-                "cat-malls": "Shopping Malls",
-                "cat-entertainment": "Entertainment & Social Areas",
+                "cat-historical": "Historical Places", "cat-malls": "Shopping Malls", "cat-entertainment": "Entertainment & Social Areas",
 
                 "loc-anitkabir": "Anıtkabir", "loc-kale": "Ankara Castle", "loc-meclis": "First Parliament", "loc-cankaya": "Çankaya Mansion",
                 "desc-anitkabir": "The mausoleum of the great leader Mustafa Kemal Atatürk. The symbol of independence in the heart of Ankara.",
@@ -230,31 +233,121 @@
             }
         };
 
+          
+        let currentLang = localStorage.getItem('selectedLang') || 'tr';
+
+        
         function changeLanguage(lang) {
             currentLang = lang;
-            const elements = document.querySelectorAll('.lang-transition');
-            elements.forEach(el => el.style.opacity = 0);
+            localStorage.setItem('selectedLang', lang); 
 
-            setTimeout(() => {
-                document.querySelectorAll('[data-i18n]').forEach(element => {
+            const elements = document.querySelectorAll('.lang-transition');
+            
+            elements.forEach(function(el) {
+                el.style.opacity = 0;
+            });
+
+            setTimeout(function() {
+                document.querySelectorAll('[data-i18n]').forEach(function(element) {
                     const key = element.getAttribute('data-i18n');
-                    if (translations[lang][key]) {
+                    if (translations[lang] && translations[lang][key]) {
                         element.innerText = translations[lang][key];
                     }
                 });
-                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
-                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
-                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
-                elements.forEach(el => el.style.opacity = 1);
+                
+                
+                var formName = document.getElementById('formName');
+                var formEmail = document.getElementById('formEmail');
+                var formMessage = document.getElementById('formMessage');
+                
+                if(formName && translations[lang] && translations[lang]['ph-name']) formName.placeholder = translations[lang]['ph-name'];
+                if(formEmail && translations[lang] && translations[lang]['ph-email']) formEmail.placeholder = translations[lang]['ph-email'];
+                if(formMessage && translations[lang] && translations[lang]['ph-message']) formMessage.placeholder = translations[lang]['ph-message'];
+
+                elements.forEach(function(el) {
+                    el.style.opacity = 1;
+                });
             }, 300);
         }
+
+       
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage(currentLang);
+        });
+        
+
 
         document.getElementById('contactBtn').onclick = () => {
             var popup = document.getElementById('contactPopup');
             popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
         }
+
+
         document.getElementById('closeContactBtn').onclick = () => {
             document.getElementById('contactPopup').style.display = 'none';
+
+            var form = document.getElementById('contactForm');
+            var statusMsg = document.getElementById('statusMessage');
+            if(form) {
+                form.style.display = 'block';
+                form.reset();
+            }
+            if(statusMsg) statusMsg.style.display = 'none';
+        }
+
+
+        var contactForm = document.getElementById('contactForm');
+        var statusMessage = document.getElementById('statusMessage');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                var data = new FormData(contactForm);
+                fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                 
+                        contactForm.style.display = 'none';
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = '#28a745'; // Yeşil renk
+                        statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "Message sent successfully!" : "Mesajınız başarıyla gönderildi!";
+                        contactForm.reset(); 
+                        
+                
+                        setTimeout(() => {
+                            document.getElementById('contactPopup').style.display = 'none';
+                            contactForm.style.display = 'block';
+                            statusMessage.style.display = 'none';
+                        }, 3000);
+
+                    } else {
+               
+                        contactForm.style.display = 'none';
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = '#dc3545'; 
+                        statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "An error occurred, please try again." : "Bir hata oluştu, lütfen tekrar deneyin.";
+                        
+                        setTimeout(() => {
+                            contactForm.style.display = 'block';
+                            statusMessage.style.display = 'none';
+                        }, 3000);
+                    }
+                }).catch(error => {
+                    contactForm.style.display = 'none';
+                    statusMessage.style.display = 'block';
+                    statusMessage.style.color = '#dc3545';
+                    statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "A connection error occurred." : "Bir bağlantı hatası oluştu.";
+                    
+                    setTimeout(() => {
+                        contactForm.style.display = 'block';
+                        statusMessage.style.display = 'none';
+                    }, 3000);
+                });
+            });
         }
     </script>
 </body>

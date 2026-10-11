@@ -33,13 +33,20 @@ window.closePanel = function() {
 }
 
 // ==========================================
-// 1. HARİTA (Leaflet): Mutlaka Görülmesi Gereken Şehirler
+// 1. HARİTA (Leaflet): Mutlaka Görülmesi Gereken Şehirler (Clustering Eklendi)
 // ==========================================
+var worldBounds = [
+    [-90, -180], 
+    [90, 180]    
+];
+
 var lMap = L.map('leaflet-map', {
-    worldCopyJump: false
+    worldCopyJump: false,
+    maxBounds: worldBounds, 
+    maxBoundsViscosity: 1.0, 
+    minZoom: 2 
 }).setView([39.0, 35.0], 5);
 
-// Issue 2: Uzaklaşınca dünyanın tekrar etmesini engeller (noWrap: true)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     noWrap: true,
     attribution: '© OpenStreetMap'
@@ -58,7 +65,8 @@ var cityData = {
     'trabzon': { coords: [41.0027, 39.7168], titleKey: "loc-trabzon", descKey: "desc-trabzon", img: "img/trabzon.jpg" }
 };
 
-var markersGroup = L.layerGroup();
+// YENİ: Normal layerGroup yerine MarkerClusterGroup kullanıyoruz
+var markersGroup = L.markerClusterGroup();
 
 Object.keys(cityData).forEach(function(key) {
     var place = cityData[key];
@@ -67,14 +75,8 @@ Object.keys(cityData).forEach(function(key) {
     markersGroup.addLayer(marker);
 });
 
-// Issue 1: Zoom threshold - Haritaya belirli bir seviyede yaklaşmadan markerlar gözükmez
-lMap.on('zoomend', function() {
-    if (lMap.getZoom() > 5) {
-        if (!lMap.hasLayer(markersGroup)) lMap.addLayer(markersGroup);
-    } else {
-        if (lMap.hasLayer(markersGroup)) lMap.removeLayer(markersGroup);
-    }
-});
+// Kümeyi haritaya kalıcı olarak ekliyoruz (uzaklaşınca kaybolmayacak, sayıya dönüşecek)
+lMap.addLayer(markersGroup);
 
 window.goToCity = function(key) {
     var coords = cityData[key].coords;
@@ -113,16 +115,13 @@ Object.keys(ankaraData).forEach(function(key) {
     features.push(feature);
 });
 
-// Temel vektör kaynağı
 var vectorSource = new ol.source.Vector({ features: features });
 
-// Kümelenme (Clustering) Kaynağı
 var clusterSource = new ol.source.Cluster({
     distance: 40,
     source: vectorSource
 });
 
-// Kümelenme ve Pin Renklendirme Stili
 var styleCache = {};
 var styleFunction = function(feature) {
     var size = feature.get('features').length;
@@ -169,6 +168,11 @@ var clusterLayer = new ol.layer.Vector({
     style: styleFunction
 });
 
+var ankaraExtent = ol.proj.transformExtent(
+    [32.30, 39.60, 33.10, 40.10], 
+    'EPSG:4326', 'EPSG:3857'
+);
+
 var olMap = new ol.Map({
     target: 'ol-map',
     layers: [
@@ -181,7 +185,9 @@ var olMap = new ol.Map({
     ],
     view: new ol.View({
         center: ol.proj.fromLonLat([32.82, 39.90]), 
-        zoom: 11
+        zoom: 11,
+        minZoom: 10,
+        extent: ankaraExtent
     })
 });
 
@@ -195,14 +201,12 @@ window.goToLocation = function(key) {
     showPanel(ankaraData[key]);
 };
 
-// YENİ: Harita üzerinde pinlerin veya kümelerin üzerine gelindiğinde imleci (cursor) "el" işaretine dönüştür
 olMap.on('pointermove', function(e) {
     if (e.dragging) return;
-    var hit = olMap.hasFeatureAtPixel(e.pixel, { hitTolerance: 5 }); // 5 piksel tolerans payı
+    var hit = olMap.hasFeatureAtPixel(e.pixel, { hitTolerance: 5 }); 
     olMap.getTargetElement().style.cursor = hit ? 'pointer' : '';
 });
 
-// GÜNCELLENDİ: Tıklama toleransı (hitTolerance) eklendi ve küme zoom ayarları geliştirildi
 olMap.on('singleclick', function(evt) {
     var feature = olMap.forEachFeatureAtPixel(evt.pixel, function(feat) { return feat; }, { hitTolerance: 5 });
     
@@ -210,19 +214,16 @@ olMap.on('singleclick', function(evt) {
         var clusterFeatures = feature.get('features');
         
         if (clusterFeatures.length > 1) {
-            // Bir kümeye tıklandığında noktaları kaplayacak sınırları belirle
             var extent = ol.extent.createEmpty();
             clusterFeatures.forEach(function(f) {
                 ol.extent.extend(extent, f.getGeometry().getExtent());
             });
-            // O sınırların içine sığacak kadar animasyonla yakınlaş
             olMap.getView().fit(extent, { 
                 duration: 1000, 
                 padding: [80, 80, 80, 80], 
-                maxZoom: 16 // Tek bir noktaya aşırı yakınlaşmayı engeller
+                maxZoom: 16
             });
         } else if (clusterFeatures.length === 1) {
-            // Tek bir noktaya tıklandıysa paneli aç
             var key = clusterFeatures[0].get('id');
             goToLocation(key);
         }

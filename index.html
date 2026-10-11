@@ -5,52 +5,23 @@
     <title>Ana Sayfa - Ramazan Aydın Kocaer</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .tech-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .tech-item {
-            text-align: center;
-            font-size: 14px;
+
+        .btn-primary {
+            display: inline-block;
+            background-color: #2b2d30;
+            color: #f8f9fa;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: 600;
-            color: #555;
-            transition: transform 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .tech-item:hover {
-            transform: scale(1.1);
-        }
-        .tech-item img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            margin-bottom: 8px;
-        }
-        .clickable-row {
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .clickable-row:hover {
-            background-color: #e9ecef;
-        }
-        .clickable-row td:first-child {
-            color: #007bff;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-        .clickable-row:hover td:first-child {
-            color: #0056b3;
-        }
-        .lang a {
-            cursor: pointer;
-        }
-        /* Dilde yumuşak geçiş için eklendi */
-        .lang-transition {
-            transition: opacity 0.3s ease-in-out;
-            opacity: 1;
+        .btn-primary:hover {
+            background-color: #495057;
+            transform: translateY(-2px);
+            color: #ffffff;
         }
     </style>
 </head>
@@ -66,6 +37,7 @@
     </nav>
     
     <div class="container fade-in">
+
         <header class="card header-card">
             <img src="img/pp.jpeg" alt="Ramazan Aydın Kocaer" class="profile-img">
             <div>
@@ -73,6 +45,7 @@
                 <p class="lang-transition" data-i18n="header-desc">Hacettepe Üniversitesi - Harita Mühendisliği (2210674066)</p>
             </div>
         </header>
+
 
         <section class="card">
             <h2 class="lang-transition" data-i18n="sec-proj-title">Projeler</h2>
@@ -89,7 +62,20 @@
                     <td class="lang-transition" data-i18n="proj2-title">Google Earth Engine Analizi</td>
                     <td class="lang-transition" data-i18n="proj2-desc">İzmir Yamanlar Dağı orman yangını hasar tespiti (NBR/dNBR). Rapor detayları için tıklayın.</td>
                 </tr>
+                <tr class="clickable-row" onclick="window.location.href='projects.html#sar';">
+                    <td class="lang-transition" data-i18n="proj3-title">SAR Görüntüleri ile Gemi Tespiti</td>
+                    <td class="lang-transition" data-i18n="proj3-desc">Sentinel-1 verileri kullanılarak Python ile otomatik gemi tespiti (Bitirme Projesi). Detaylar için tıklayın.</td>
+                </tr>
             </table>
+        </section>
+
+
+        <section class="card" style="text-align: center; padding: 40px 30px;">
+            <h2 class="lang-transition" data-i18n="sec-maps-title" style="margin-bottom: 15px;">İnteraktif Web Haritaları</h2>
+            <p class="lang-transition" data-i18n="sec-maps-desc" style="color: #555; line-height: 1.7; margin-bottom: 25px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Leaflet ve OpenLayers kütüphanelerini kullanarak hazırladığım; Türkiye'nin mutlaka görülmesi gereken şehirlerini ve Ankara'nın önemli noktalarını (Tarihi Yerler, AVM'ler, Sosyal Alanlar) içeren interaktif web haritalarını inceleyebilirsiniz.
+            </p>
+            <a href="maps.html" class="btn-primary lang-transition" data-i18n="btn-go-maps">Haritaları Görüntüle</a>
         </section>
 
         <section class="card">
@@ -108,32 +94,100 @@
         </section>
     </div>
 
-    <!-- Yüzen İletişim Butonu ve Popup -->
+
     <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
     <div id="contactPopup" class="contact-popup-container">
         <div class="contact-popup-header">
             <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
             <button id="closeContactBtn">&times;</button>
         </div>
-        <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
+        
+
+        <form id="contactForm" action="https://formspree.io/f/xkjobydz" method="POST">
             <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
             <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
             <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
             <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
         </form>
+
+        <div id="statusMessage" style="display: none; text-align: center; padding: 20px 0; font-weight: 600; font-size: 14px;"></div>
     </div>
 
     <script>
-        // İletişim Formu Aç/Kapat Mantığı
-        document.getElementById('contactBtn').onclick = function() {
+
+
+        document.getElementById('contactBtn').onclick = () => {
             var popup = document.getElementById('contactPopup');
             popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
         }
-        document.getElementById('closeContactBtn').onclick = function() {
+
+
+        document.getElementById('closeContactBtn').onclick = () => {
             document.getElementById('contactPopup').style.display = 'none';
+         
+            var form = document.getElementById('contactForm');
+            var statusMsg = document.getElementById('statusMessage');
+            if(form) {
+                form.style.display = 'block';
+                form.reset();
+            }
+            if(statusMsg) statusMsg.style.display = 'none';
         }
 
-        // Dil Çeviri Sözlüğü
+
+        var contactForm = document.getElementById('contactForm');
+        var statusMessage = document.getElementById('statusMessage');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                
+                var data = new FormData(contactForm);
+                fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                    
+                        contactForm.style.display = 'none';
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = '#28a745'; 
+                        statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "Message sent successfully!" : "Mesajınız başarıyla gönderildi!";
+                        contactForm.reset(); 
+                        
+            
+                        setTimeout(() => {
+                            document.getElementById('contactPopup').style.display = 'none';
+                            contactForm.style.display = 'block';
+                            statusMessage.style.display = 'none';
+                        }, 3000);
+
+                    } else {
+            
+                        contactForm.style.display = 'none';
+                        statusMessage.style.display = 'block';
+                        statusMessage.style.color = '#dc3545'; 
+                        statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "An error occurred, please try again." : "Bir hata oluştu, lütfen tekrar deneyin.";
+                        
+                        setTimeout(() => {
+                            contactForm.style.display = 'block';
+                            statusMessage.style.display = 'none';
+                        }, 3000);
+                    }
+                }).catch(error => {
+                    contactForm.style.display = 'none';
+                    statusMessage.style.display = 'block';
+                    statusMessage.style.color = '#dc3545';
+                    statusMessage.innerText = (typeof currentLang !== 'undefined' && currentLang === 'en') ? "A connection error occurred." : "Bir bağlantı hatası oluştu.";
+                    
+                    setTimeout(() => {
+                        contactForm.style.display = 'block';
+                        statusMessage.style.display = 'none';
+                    }, 3000);
+                });
+            });
+        }
         const translations = {
             "tr": {
                 "nav-home": "Ana Sayfa",
@@ -141,6 +195,7 @@
                 "nav-projects": "Projeler",
                 "nav-maps": "Haritalar",
                 "header-desc": "Hacettepe Üniversitesi - Harita Mühendisliği (2210674066)",
+                
                 "sec-proj-title": "Projeler",
                 "th-proj": "Proje/Araç",
                 "th-desc": "Açıklama",
@@ -148,6 +203,13 @@
                 "proj1-desc": "Kampüs içi sigara izmariti kirliliği mekansal analizi. Proje detayları ve metodoloji için tıklayın.",
                 "proj2-title": "Google Earth Engine Analizi",
                 "proj2-desc": "İzmir Yamanlar Dağı orman yangını hasar tespiti (NBR/dNBR). Rapor detayları için tıklayın.",
+                "proj3-title": "SAR Görüntüleri ile Gemi Tespiti",
+                "proj3-desc": "Sentinel-1 verileri kullanılarak Python ile otomatik gemi tespiti (Bitirme Projesi). Detaylar için tıklayın.",
+                
+                "sec-maps-title": "İnteraktif Web Haritaları",
+                "sec-maps-desc": "Leaflet ve OpenLayers kütüphanelerini kullanarak hazırladığım; Türkiye'nin mutlaka görülmesi gereken şehirlerini ve Ankara'nın önemli noktalarını (Tarihi Yerler, AVM'ler, Sosyal Alanlar) içeren interaktif web haritalarını inceleyebilirsiniz.",
+                "btn-go-maps": "Haritaları Görüntüle",
+
                 "sec-tech-title": "Eğitim Hayatım Boyunca Kullandığım Teknolojiler",
                 "btn-contact": "Bana Ulaşın",
                 "pop-title": "Bana Ulaşın",
@@ -162,6 +224,7 @@
                 "nav-projects": "Projects",
                 "nav-maps": "Maps",
                 "header-desc": "Hacettepe University - Geomatics Engineering (2210674066)",
+                
                 "sec-proj-title": "Projects",
                 "th-proj": "Project/Tool",
                 "th-desc": "Description",
@@ -169,6 +232,13 @@
                 "proj1-desc": "Spatial analysis of cigarette butt pollution on campus. Click for project details and methodology.",
                 "proj2-title": "Google Earth Engine Analysis",
                 "proj2-desc": "Izmir Yamanlar Mountain forest fire damage assessment (NBR/dNBR). Click for report details.",
+                "proj3-title": "Ship Detection with SAR Imagery",
+                "proj3-desc": "Automated ship detection with Python using Sentinel-1 data (Graduation Project). Click for details.",
+                
+                "sec-maps-title": "Interactive Web Maps",
+                "sec-maps-desc": "You can explore the interactive web maps I prepared using Leaflet and OpenLayers libraries, featuring Turkey's must-see cities and important spots in Ankara (Historical Places, Shopping Malls, Social Areas).",
+                "btn-go-maps": "View Maps",
+
                 "sec-tech-title": "Technologies I Have Used Throughout My Education",
                 "btn-contact": "Contact Me",
                 "pop-title": "Contact Me",
@@ -179,36 +249,49 @@
             }
         };
 
-        // Animasyonlu Dili Değiştiren Fonksiyon
+
+    
+        let currentLang = localStorage.getItem('selectedLang') || 'tr';
+
+       
         function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('selectedLang', lang); 
+
             const elements = document.querySelectorAll('.lang-transition');
             
-            // Tüm yazıları transparan yap
             elements.forEach(function(el) {
                 el.style.opacity = 0;
             });
 
-            // Animasyon süresi (300ms) kadar bekleyip yazıları değiştir ve geri göster
             setTimeout(function() {
-                // Metinleri Değiştir
                 document.querySelectorAll('[data-i18n]').forEach(function(element) {
                     const key = element.getAttribute('data-i18n');
-                    if (translations[lang][key]) {
+                    if (translations[lang] && translations[lang][key]) {
                         element.innerText = translations[lang][key];
                     }
                 });
                 
-                // Form Alanlarını (Placeholder) Değiştir
-                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
-                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
-                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
+                
+                var formName = document.getElementById('formName');
+                var formEmail = document.getElementById('formEmail');
+                var formMessage = document.getElementById('formMessage');
+                
+                if(formName && translations[lang] && translations[lang]['ph-name']) formName.placeholder = translations[lang]['ph-name'];
+                if(formEmail && translations[lang] && translations[lang]['ph-email']) formEmail.placeholder = translations[lang]['ph-email'];
+                if(formMessage && translations[lang] && translations[lang]['ph-message']) formMessage.placeholder = translations[lang]['ph-message'];
 
-                // Yeni yazılarla birlikte opaklığı tekrar 1 yap (Geri getir)
                 elements.forEach(function(el) {
                     el.style.opacity = 1;
                 });
             }, 300);
         }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            changeLanguage(currentLang);
+        });
+        
     </script>
 </body>
 </html>
