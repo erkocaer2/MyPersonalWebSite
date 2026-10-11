@@ -4,7 +4,6 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    /* Bilgisayarı hiç yormayan, saf CSS ile yapılmış statik noktalı arka plan */
     background: 
         linear-gradient(to bottom, transparent 0%, transparent 45vh, #f4f5f7 45vh, #f4f5f7 100%),
         radial-gradient(#4b5563 1.5px, transparent 1.5px),
@@ -14,7 +13,6 @@ body {
     color: #333333;
 }
 
-/* Glassmorphism (Buzlu Cam) Efektli Sabit Menü */
 header {
     position: sticky;
     top: 0;
@@ -29,14 +27,14 @@ header {
 nav {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Linkler arası boşluk */
+    gap: 10px;
 }
 
 nav a {
     color: #a1a1aa;
     text-decoration: none;
     padding: 10px 24px;
-    border-radius: 30px; /* Modern yuvarlak linkler */
+    border-radius: 30px;
     font-weight: 500;
     font-size: 15px;
     transition: all 0.3s ease;
@@ -44,23 +42,20 @@ nav a {
 
 nav a:hover {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1); /* Üzerine gelince hafif aydınlanma */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Ana İçerik Kartı */
 .container {
     max-width: 800px;
     margin: 60px auto 80px auto; 
     padding: 50px;
     background-color: #ffffff;
-    /* Daha yumuşak ve geniş açılı bir gölge */
     box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
     border-radius: 16px;
     text-align: center;
     position: relative;
 }
 
-/* Profil Fotoğrafı Çerçevesi (Çift Çizgi ve Hover Animasyonu) */
 .profile-pic {
     width: 13.2vw;
     height: 13.2vw;
@@ -68,7 +63,6 @@ nav a:hover {
     min-height: 150px;
     object-fit: cover;
     border-radius: 50%;
-    /* Beyaz iç çerçeve ve antrasit dış sınır */
     border: 4px solid #ffffff; 
     outline: 3px solid #2b2e33;
     outline-offset: -1px;
@@ -79,10 +73,9 @@ nav a:hover {
 }
 
 .profile-pic:hover {
-    transform: scale(1.05); /* Fareyle üzerine gelince hafif büyür */
+    transform: scale(1.05);
 }
 
-/* Başlık ve Animasyon */
 .animated-title {
     animation: fadeInDown 1s ease-out;
     color: #1a1c20;
@@ -105,7 +98,6 @@ p {
     font-size: 16px;
 }
 
-/* Yeni Hakkımda Kartı Tasarımı */
 .info-card {
     text-align: left;
     margin-top: 50px;
@@ -140,11 +132,10 @@ p {
     top: -4px;
 }
 
-/* Şehir Rozetleri (Tags) Tasarımı */
 .city-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Rozetler arası boşluk */
+    gap: 10px;
     margin-top: 15px;
 }
 
@@ -166,7 +157,6 @@ p {
     background-color: #3f444c;
 }
 
-/* Tablo Tasarımı */
 .tech-table {
     width: 100%;
     border-collapse: separate;
@@ -187,3 +177,131 @@ p {
     background-color: #2b2e33;
     color: #ffffff;
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.tech-table tr:last-child td { border-bottom: none; }
+.tech-table tr:hover { background-color: #f9fafb; transition: background-color 0.2s ease; }
+.tech-table img { vertical-align: middle; }
+
+/* --- BİZE ULAŞIN WIDGET TASARIMI --- */
+.contact-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+.contact-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #2b2e33;
+    color: white;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+    background-color: #4CAF50;
+    transform: scale(1.1);
+}
+
+.contact-popup {
+    display: none; 
+    position: absolute;
+    bottom: 80px; 
+    right: 0;
+    width: 320px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    border-top: 5px solid #2b2e33;
+    flex-direction: column;
+}
+
+.contact-popup.show {
+    display: flex;
+    animation: slideUpFadePopup 0.3s ease-out;
+}
+
+@keyframes slideUpFadePopup {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contact-popup h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #1a1c20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #9ca3af;
+    line-height: 1;
+    padding: 0;
+}
+
+.close-btn:hover {
+    color: #ef4444;
+}
+
+.contact-popup input, 
+.contact-popup textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: #f9fafb;
+    transition: border-color 0.3s;
+}
+
+.contact-popup input:focus, 
+.contact-popup textarea:focus {
+    outline: none;
+    border-color: #2b2e33;
+    background-color: #ffffff;
+}
+
+.contact-popup textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-popup button[type="submit"] {
+    width: 100%;
+    background-color: #2b2e33;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-popup button[type="submit"]:hover {
+    background-color: #4CAF50;
+}

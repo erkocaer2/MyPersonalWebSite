@@ -50,5 +50,54 @@
             </div>
         </div>
     </main>
+
+    <div class="contact-widget">
+        <div class="contact-popup" id="contactPopup">
+            <h3>Bana Ulaşın <button class="close-btn" onclick="toggleContact()">×</button></h3>
+            
+
+            <form id="contactForm">
+                <input type="text" name="isim" placeholder="İsim Soyisim" required>
+                <input type="email" name="email" placeholder="E-posta Adresi" required>
+                <textarea name="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                <button type="submit">Gönder</button>
+            </form>
+
+        </div>
+
+        <button class="contact-btn" onclick="toggleContact()">💬</button>
+    </div>
+
+
+    <script>
+        function toggleContact() {
+            const popup = document.getElementById('contactPopup');
+            popup.classList.toggle('show');
+        }
+
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const form = e.target;
+            const data = new FormData(form);
+
+            fetch('https://formspree.io/f/xkjobydz', { 
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Mesajınız başarıyla iletildi!');
+                    form.reset(); 
+                    toggleContact(); 
+                } else {
+                    alert('Mesaj gönderilirken bir hata oluştu.');
+                }
+            }).catch(error => {
+                alert('Bir bağlantı hatası oluştu.');
+            });
+        });
+    </script>
 </body>
 </html>
