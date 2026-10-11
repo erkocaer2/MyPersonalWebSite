@@ -50,9 +50,11 @@
     </style>
 </head>
 <body>
-    <nav>
+   <nav>
         <div class="lang">
             <a onclick="changeLanguage('tr')">TR</a> | <a onclick="changeLanguage('en')">ENG</a>
+      
+            <button id="themeToggleBtn" onclick="toggleTheme()">🌙</button>
         </div>
         <a href="index.html" class="lang-transition" data-i18n="nav-home">Ana Sayfa</a>
         <a href="me.html" class="lang-transition" data-i18n="nav-about">Hakkımda</a>
@@ -263,10 +265,31 @@
         }
 
         
+
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        function applyTheme() {
+            var themeBtn = document.getElementById('themeToggleBtn');
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                if(themeBtn) themeBtn.innerText = '☀️'; 
+            } else {
+                document.body.classList.remove('dark-mode');
+                if(themeBtn) themeBtn.innerText = '🌙'; 
+            }
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode); 
+            applyTheme();
+        }
+
+
         document.addEventListener('DOMContentLoaded', function() {
-            changeLanguage(currentLang);
+            changeLanguage(window.currentLang); // Dili ayarlar
+            applyTheme(); // Temayı ayarlar
         });
-        
     </script>
 </body>
 </html>
