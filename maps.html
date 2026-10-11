@@ -2,236 +2,260 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulunduğum Yerler - Ramazan Aydın Kocaer</title>
+    <title>Haritalar - Ramazan Aydın Kocaer</title>
     <link rel="stylesheet" href="style.css">
-    
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1.0/ol.css">
-    <script src="https://cdn.jsdelivr.net/npm/ol@v8.1.0/dist/ol.js"></script>
-
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css">
     <style>
-        .quick-locations {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
+        .category-title {
+            font-size: 18px;
+            color: #007bff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 5px;
         }
-        .loc-btn {
-            background-color: #2b2e33;
-            color: #ffffff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .loc-btn:hover {
-            background-color: #4CAF50;
-            transform: translateY(-2px);
+        .category-section {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
+    
+    <div class="page-content">
         <nav>
-            <a href="index.html">Hakkımda</a>
-            <a href="technologies.html">Teknolojiler</a>
-            <a href="maps.html">Yaşadığım Şehirler ve Ankara</a>
-        </nav>
-    </header>
-
-    <main class="container">
-        <h1 class="animated-title">Haritalar ve Konumlar</h1>
-        <p>Projemi oluşturan iki farklı web haritası teknolojisini aşağıda inceleyebilirsiniz.</p>
-        
-        <div class="info-card" style="margin-top: 40px;">
-            <h2>1. OpenLayers (OSM) Haritası - Yaşadığım Şehirler</h2>
-            <div id="ol-map" style="height: 450px; width: 100%; margin-top: 15px; border: 2px solid #2b2e33; border-radius: 12px; z-index: 1;"></div>
-        </div>
-
-        <div class="info-card">
-            <h2>2. Leaflet Haritası - Ankara'nın Önemli Yerleri</h2>
-            <p style="font-size: 14px; color: #6b7280; margin-bottom: 10px;">
-            </p>
-
-            <div class="quick-locations">
-                <button class="loc-btn" onclick="flyToLocation(39.9255, 32.8369, 'Anıtkabir', 16)">Anıtkabir</button>
-                <button class="loc-btn" onclick="flyToLocation(39.8686, 32.7345, 'Hacettepe Üniversitesi', 16)">Hacettepe Üniversitesi</button>
-                <button class="loc-btn" onclick="flyToLocation(39.9208, 32.8541, 'Kızılay Meydanı', 16)">Kızılay Meydanı</button>
-                <button class="loc-btn" onclick="flyToLocation(39.8885, 32.8656, 'Çankaya Köşkü', 16)">Çankaya Köşkü</button>
-                <button class="loc-btn" style="background-color: #6b7280;" onclick="resetAnkaraMap()">Ankara Geneline Dön</button>
+            <div class="lang">
+                <a onclick="changeLanguage('tr')">TR</a> | <a onclick="changeLanguage('en')">ENG</a>
             </div>
+            <a href="index.html" class="lang-transition" data-i18n="nav-home">Ana Sayfa</a>
+            <a href="me.html" class="lang-transition" data-i18n="nav-about">Hakkımda</a>
+            <a href="projects.html" class="lang-transition" data-i18n="nav-projects">Projeler</a>
+            <a href="maps.html" class="lang-transition" data-i18n="nav-maps">Haritalar</a>
+        </nav>
+        
+        <div class="container fade-in">
+            <!-- 1. Harita (Leaflet) -->
+            <section class="card">
+                <h2 class="lang-transition" data-i18n="map1-title">Mutlaka Görülmesi Gereken Şehirler (Leaflet)</h2>
+                
+                <div class="location-buttons lang-transition">
+                    <button onclick="goToCity('agri')" data-i18n="loc-agri">Ağrı</button>
+                    <button onclick="goToCity('ankara')" data-i18n="loc-ankara">Ankara</button>
+                    <button onclick="goToCity('antalya')" data-i18n="loc-antalya">Antalya</button>
+                    <button onclick="goToCity('ardahan')" data-i18n="loc-ardahan">Ardahan</button>
+                    <button onclick="goToCity('balikesir')" data-i18n="loc-balikesir">Balıkesir</button>
+                    <button onclick="goToCity('canakkale')" data-i18n="loc-canakkale">Çanakkale</button>
+                    <button onclick="goToCity('istanbul')" data-i18n="loc-istanbul">İstanbul</button>
+                    <button onclick="goToCity('izmir')" data-i18n="loc-izmir">İzmir</button>
+                    <button onclick="goToCity('mersin')" data-i18n="loc-mersin">Mersin</button>
+                    <button onclick="goToCity('trabzon')" data-i18n="loc-trabzon">Trabzon</button>
+                </div>
 
-            <div id="leaflet-map" style="height: 450px; width: 100%; margin-top: 15px; border: 2px solid #2b2e33; border-radius: 12px; z-index: 1;"></div>
+                <div class="map-layout">
+                    <div id="leaflet-map" style="width: 100%; height: 480px;"></div>
+                </div>
+            </section>
+
+            <!-- 2. Harita (OpenLayers) -->
+            <section class="card">
+                <h2 class="lang-transition" data-i18n="map2-title">Ankara'da Gezilecek Yerler (OpenLayers)</h2>
+                
+                <!-- TARIHI YERLER KATEGORISI -->
+                <div class="category-section">
+                    <h3 class="category-title lang-transition" data-i18n="cat-historical">Tarihi Yerler</h3>
+                    <div class="location-buttons lang-transition">
+                        <button onclick="goToLocation('anitkabir')" data-i18n="loc-anitkabir">Anıtkabir</button>
+                        <button onclick="goToLocation('kale')" data-i18n="loc-kale">Ankara Kalesi</button>
+                        <button onclick="goToLocation('meclis')" data-i18n="loc-meclis">1. TBMM (Meclis)</button>
+                        <!-- Çankaya Köşkü Buraya Taşındı -->
+                        <button onclick="goToLocation('cankaya')" data-i18n="loc-cankaya">Çankaya Köşkü</button>
+                    </div>
+                </div>
+
+                <!-- AVM'LER KATEGORISI -->
+                <div class="category-section">
+                    <h3 class="category-title lang-transition" data-i18n="cat-malls">AVM'ler</h3>
+                    <div class="location-buttons lang-transition">
+                        <button onclick="goToLocation('ankamall')" data-i18n="loc-ankamall">Ankamall</button>
+                        <button onclick="goToLocation('armada')" data-i18n="loc-armada">Armada AVM</button>
+                    </div>
+                </div>
+
+                <!-- EĞLENCE VE SOSYAL ALANLAR KATEGORISI -->
+                <div class="category-section">
+                    <h3 class="category-title lang-transition" data-i18n="cat-entertainment">Eğlence ve Sosyal Alanlar</h3>
+                    <div class="location-buttons lang-transition">
+                        <button onclick="goToLocation('kizilay')" data-i18n="loc-kizilay">Kızılay Meydanı</button>
+                        <button onclick="goToLocation('7cadde')" data-i18n="loc-7cadde">7. Cadde</button>
+                        <button onclick="goToLocation('sakarya')" data-i18n="loc-sakarya">Sakarya Caddesi</button>
+                        <button onclick="goToLocation('tunali')" data-i18n="loc-tunali">Tunalı Hilmi Caddesi</button>
+                        <button onclick="goToLocation('goksu')" data-i18n="loc-goksu">Göksu Parkı</button>
+                        <button onclick="goToLocation('aoc')" data-i18n="loc-aoc">Atatürk Orman Çiftliği</button>
+                        <button onclick="goToLocation('hacettepe')" data-i18n="loc-hacettepe">Hacettepe Beytepe</button>
+                    </div>
+                </div>
+
+                <div class="map-layout">
+                    <div id="ol-map"></div>
+                </div>
+            </section>
+
+            <!-- Yüzen İletişim Butonu ve Popup -->
+            <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
+            <div id="contactPopup" class="contact-popup-container">
+                <div class="contact-popup-header">
+                    <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
+                    <button id="closeContactBtn">&times;</button>
+                </div>
+                <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
+                    <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
+                    <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
+                    <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
+                    <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
+                </form>
+            </div>
         </div>
-    </main>
-
-    <script>
-        let leafletMap;
-        let ankaraGroup;
-        const ankaraMarkers = {};
-
-        document.addEventListener('DOMContentLoaded', function() {
-
-            const cities = [
-                { name: "Konya", coords: [32.4846, 37.8714] }, 
-                { name: "Karaman", coords: [33.2222, 37.1811] },
-                { name: "Ankara", coords: [32.8597, 39.9334] },
-
-            ];
-
-            const features = cities.map(city => {
-                return new ol.Feature({
-                    geometry: new ol.geom.Point(ol.proj.fromLonLat(city.coords)),
-                    name: city.name
-                });
-            });
-
-            const vectorSource = new ol.source.Vector({ features: features });
-            
-            const vectorLayer = new ol.layer.Vector({
-                source: vectorSource,
-                style: function(feature) {
-                    return new ol.style.Style({
-                        image: new ol.style.Circle({
-                            radius: 7,
-                            fill: new ol.style.Fill({color: '#e74c3c'}),
-                            stroke: new ol.style.Stroke({color: '#ffffff', width: 2})
-                        }),
-                        text: new ol.style.Text({
-                            text: feature.get('name'),
-                            font: 'bold 12px Inter, sans-serif',
-                            fill: new ol.style.Fill({ color: '#2b2e33' }),
-                            stroke: new ol.style.Stroke({ color: '#ffffff', width: 3 }),
-                            offsetY: -15
-                        })
-                    });
-                }
-            });
-
-            const olMap = new ol.Map({
-                target: 'ol-map',
-                layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM({ wrapX: false }) 
-                    }),
-                    vectorLayer
-                ],
-                view: new ol.View({
-                    center: ol.proj.fromLonLat([35.0, 39.0]),
-                    zoom: 5.5
-                })
-            });
-
-            
-            leafletMap = L.map('leaflet-map').setView([39.9334, 32.8597], 10); 
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors',
-                noWrap: true,
-                bounds: [[-90, -180], [90, 180]]
-            }).addTo(leafletMap);
-
-            const ankaraPoints = [
-                { name: "Anıtkabir", coords: [39.9255, 32.8369] },
-                { name: "Hacettepe Üniversitesi", coords: [39.8686, 32.7345] },
-                { name: "Kızılay Meydanı", coords: [39.9208, 32.8541] },
-                { name: "Çankaya Köşkü", coords: [39.8885, 32.8656] }
-            ];
-
-            ankaraGroup = L.layerGroup();
-            
-            ankaraPoints.forEach(pt => {
-                const marker = L.marker(pt.coords)
-                 .bindPopup(`<strong style="color:#2b2e33; font-size:14px;">${pt.name}</strong>`);
-                ankaraMarkers[pt.name] = marker; 
-                marker.addTo(ankaraGroup);
-            });
-
-            leafletMap.on('zoomend', function() {
-                if (leafletMap.getZoom() >= 13) {
-                    if (!leafletMap.hasLayer(ankaraGroup)) ankaraGroup.addTo(leafletMap);
-                } else {
-                    if (leafletMap.hasLayer(ankaraGroup)) ankaraGroup.removeFrom(leafletMap);
-                }
-            });
-        });
-
-        function flyToLocation(lat, lng, name, zoomLevel) {
-            // İlgili konuma uç
-            leafletMap.flyTo([lat, lng], zoomLevel, {
-                animate: true,
-                duration: 1.5
-            });
-
-            setTimeout(() => {
-                if (ankaraMarkers[name]) {
-                    ankaraMarkers[name].openPopup();
-                }
-            }, 1600);
-        }
-
-        function resetAnkaraMap() {
-            leafletMap.flyTo([39.9334, 32.8597], 10, { animate: true, duration: 1.5 });
-            leafletMap.closePopup();
-        }
-    </script>
-
-    <div class="contact-widget">
-        <div class="contact-popup" id="contactPopup">
-            <h3>Bana Ulaşın <button class="close-btn" onclick="toggleContact()">×</button></h3>
-            
-
-            <form id="contactForm">
-                <input type="text" name="isim" placeholder="İsim Soyisim" required>
-                <input type="email" name="email" placeholder="E-posta Adresi" required>
-                <textarea name="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea>
-                <button type="submit">Gönder</button>
-            </form>
-
-        </div>
-
-        <button class="contact-btn" onclick="toggleContact()">💬</button>
     </div>
 
+    <!-- Ekranın Sağından Açılan Genişletilmiş Ortak Panel -->
+    <div id="sidePanel" class="side-panel">
+        <div class="side-panel-content">
+            <button class="close-panel" onclick="closePanel()">&times;</button>
+            <img id="panelImg" src="" alt="Location Image">
+            <h3 id="panelTitle" class="lang-transition"></h3>
+            <p id="panelDesc" class="lang-transition"></p>
+        </div>
+    </div>
 
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
+    <script src="base.js"></script>
+    
     <script>
-        function toggleContact() {
-            const popup = document.getElementById('contactPopup');
-            popup.classList.toggle('show');
+        let currentLang = 'tr';
+
+        const translations = {
+            "tr": {
+                "nav-home": "Ana Sayfa", "nav-about": "Hakkımda", "nav-projects": "Projeler", "nav-maps": "Haritalar",
+                "map1-title": "Mutlaka Görülmesi Gereken Şehirler (Leaflet)",
+                "map2-title": "Ankara'da Gezilecek Yerler (OpenLayers)",
+                "btn-contact": "Bana Ulaşın", "pop-title": "Bana Ulaşın", "pop-send": "Gönder",
+                "ph-name": "Adınız", "ph-email": "E-posta Adresiniz", "ph-message": "Mesajınız",
+                
+                "loc-agri": "Ağrı", "loc-ankara": "Ankara", "loc-antalya": "Antalya", "loc-ardahan": "Ardahan", 
+                "loc-balikesir": "Balıkesir", "loc-canakkale": "Çanakkale", "loc-istanbul": "İstanbul", 
+                "loc-izmir": "İzmir", "loc-mersin": "Mersin", "loc-trabzon": "Trabzon",
+                "desc-agri": "Görkemli Ağrı Dağı ve tarihi İshak Paşa Sarayı ile doğunun efsanevi şehri.",
+                "desc-ankara": "Cumhuriyetin kalbi, tarihi dokusu ve modern yaşam alanlarıyla Türkiye'nin başkenti.",
+                "desc-antalya": "Turkuaz renkli koyları, antik kentleri ve muazzam doğasıyla turizmin başkenti.",
+                "desc-ardahan": "Bozulmamış doğası, Çıldır Gölü ve tarihi kalesiyle Doğu Anadolu'nun saklı cenneti.",
+                "desc-balikesir": "Hem Ege hem Marmara'ya kıyısı olan, Kaz Dağları'nın oksijeniyle dolu yeşil şehir.",
+                "desc-canakkale": "Tarihin yazıldığı topraklar, destansı Gelibolu Yarımadası ve Truva Antik Kenti'nin ev sahibi.",
+                "desc-istanbul": "İki kıtayı birbirine bağlayan, imparatorluklara başkentlik yapmış eşsiz dünya şehri.",
+                "desc-izmir": "Ege'nin incisi; Saat Kulesi, Kordon boyu ve antik kentleriyle özgürlüğün şehri.",
+                "desc-mersin": "Uçsuz bucaksız sahilleri, Kızkalesi ve zengin mutfağıyla Akdeniz'in önemli liman kenti.",
+                "desc-trabzon": "Yeşilin her tonunu barındıran yaylaları, Sümela Manastırı ve Karadeniz'in hırçın dalgalarıyla meşhur.",
+
+                "cat-historical": "Tarihi Yerler",
+                "cat-malls": "AVM'ler",
+                "cat-entertainment": "Eğlence ve Sosyal Alanlar",
+
+                "loc-anitkabir": "Anıtkabir", "loc-kale": "Ankara Kalesi", "loc-meclis": "1. TBMM", "loc-cankaya": "Çankaya Köşkü",
+                "desc-anitkabir": "Ulu Önder Mustafa Kemal Atatürk'ün anıt mezarı. Ankara'nın kalbinde yer alan bağımsızlık sembolü.",
+                "desc-kale": "Tarihi Ankara evleri ve dar sokaklarıyla şehrin en eski yerleşim yeri. Muazzam bir şehir manzarası sunar.",
+                "desc-meclis": "Cumhuriyetimizin temellerinin atıldığı, Kurtuluş Savaşı'nın yönetildiği tarihi meclis binası.",
+                "desc-cankaya": "Türkiye Cumhuriyeti'nin siyasi tarihine tanıklık eden, Mustafa Kemal Atatürk'ün de ikametgahı olan tarihi köşk.",
+
+                "loc-ankamall": "Ankamall", "loc-armada": "Armada AVM",
+                "desc-ankamall": "Ankara'nın en büyük alışveriş ve yaşam merkezlerinden biri. Sayısız mağaza seçeneği sunar.",
+                "desc-armada": "Söğütözü'nde bulunan, şık mimarisi ve seçkin markalarıyla ünlü alışveriş merkezi.",
+
+                "loc-kizilay": "Kızılay Meydanı", "loc-7cadde": "7. Cadde", "loc-sakarya": "Sakarya Caddesi", 
+                "loc-tunali": "Tunalı Hilmi Caddesi", "loc-goksu": "Göksu Parkı", "loc-aoc": "Atatürk Orman Çiftliği", 
+                "loc-hacettepe": "Hacettepe Beytepe",
+                
+                "desc-kizilay": "Ankara'nın kalbi, her sokağın eninde sonunda çıktığı hareketli ve dinamik şehir merkezi.",
+                "desc-7cadde": "Bahçelievler'in kalbi, kafeleri, mağazaları ve dinamik yapısıyla gençlerin uğrak noktası.",
+                "desc-sakarya": "Kızılay'da canlı müziği, barları ve sokak lezzetleriyle ünlü yaya ve eğlence bölgesi.",
+                "desc-tunali": "Kuğulu Park ile birleşen, Ankara'nın en nezih ve nostaljik alışveriş ve sosyalleşme caddesi.",
+                "desc-goksu": "Göl kenarında yürüyüş yapıp kafelerinde dinlenebileceğiniz ferah ve geniş doğa parkı.",
+                "desc-aoc": "Mustafa Kemal Atatürk tarafından kurulan, doğayla iç içe dinlenme ve tarım alanı.",
+                "desc-hacettepe": "Öğrencilik hayatımın geçtiği, yemyeşil doğası ve devasa vadisiyle efsanevi kampüs."
+            },
+            "en": {
+                "nav-home": "Home", "nav-about": "About Me", "nav-projects": "Projects", "nav-maps": "Maps",
+                "map1-title": "Must-See Cities (Leaflet)",
+                "map2-title": "Places to Visit in Ankara (OpenLayers)",
+                "btn-contact": "Contact Me", "pop-title": "Contact Me", "pop-send": "Send",
+                "ph-name": "Your Name", "ph-email": "Your Email", "ph-message": "Your Message",
+
+                "loc-agri": "Ağrı", "loc-ankara": "Ankara", "loc-antalya": "Antalya", "loc-ardahan": "Ardahan", 
+                "loc-balikesir": "Balıkesir", "loc-canakkale": "Çanakkale", "loc-istanbul": "Istanbul", 
+                "loc-izmir": "Izmir", "loc-mersin": "Mersin", "loc-trabzon": "Trabzon",
+                "desc-agri": "The legendary city of the east with the majestic Mount Ararat and the historical Ishak Pasha Palace.",
+                "desc-ankara": "The heart of the Republic, the capital of Turkey with its historical texture and modern living spaces.",
+                "desc-antalya": "The capital of tourism with its turquoise bays, ancient cities, and magnificent nature.",
+                "desc-ardahan": "The hidden paradise of Eastern Anatolia with its unspoiled nature, Lake Çıldır, and historical castle.",
+                "desc-balikesir": "A green city bordering both the Aegean and Marmara seas, filled with the oxygen of the Kaz Mountains.",
+                "desc-canakkale": "The land where history was written, home to the epic Gallipoli Peninsula and the Ancient City of Troy.",
+                "desc-istanbul": "The unique world city that connects two continents and served as the capital of empires.",
+                "desc-izmir": "The pearl of the Aegean; the city of freedom with its Clock Tower, Kordon promenade, and ancient cities.",
+                "desc-mersin": "An important Mediterranean port city with its endless beaches, Maiden's Castle, and rich cuisine.",
+                "desc-trabzon": "Famous for its plateaus featuring every shade of green, Sümela Monastery, and the fierce waves of the Black Sea.",
+
+                "cat-historical": "Historical Places",
+                "cat-malls": "Shopping Malls",
+                "cat-entertainment": "Entertainment & Social Areas",
+
+                "loc-anitkabir": "Anıtkabir", "loc-kale": "Ankara Castle", "loc-meclis": "First Parliament", "loc-cankaya": "Çankaya Mansion",
+                "desc-anitkabir": "The mausoleum of the great leader Mustafa Kemal Atatürk. The symbol of independence in the heart of Ankara.",
+                "desc-kale": "The oldest settlement of the city with historical Ankara houses and narrow streets. Offers a tremendous city view.",
+                "desc-meclis": "The historical parliament building where the foundations of our Republic were laid and the War of Independence was directed.",
+                "desc-cankaya": "The historical mansion that witnessed the political history of the Turkish Republic and served as the residence of Mustafa Kemal Atatürk.",
+
+                "loc-ankamall": "Ankamall", "loc-armada": "Armada Mall",
+                "desc-ankamall": "One of Ankara's largest shopping and lifestyle centers, offering countless store options.",
+                "desc-armada": "A stylish shopping center located in Söğütözü, known for its elegant architecture and exclusive brands.",
+
+                "loc-kizilay": "Kızılay Square", "loc-7cadde": "7th Avenue", "loc-sakarya": "Sakarya Street", 
+                "loc-tunali": "Tunalı Hilmi Street", "loc-goksu": "Göksu Park", "loc-aoc": "Atatürk Forest Farm", 
+                "loc-hacettepe": "Hacettepe Beytepe",
+
+                "desc-kizilay": "The heart of Ankara, a bustling and dynamic city center where every street eventually leads.",
+                "desc-7cadde": "The heart of Bahçelievler, a popular spot for youth with its cafes, shops, and dynamic atmosphere.",
+                "desc-sakarya": "A famous pedestrian and entertainment zone in Kızılay known for live music, bars, and street food.",
+                "desc-tunali": "Ankara's most decent and nostalgic shopping and socialization street, merging with Kuğulu Park.",
+                "desc-goksu": "A spacious nature park where you can walk by the lake and relax in its cafes.",
+                "desc-aoc": "Recreational and agricultural area intertwined with nature, established by Mustafa Kemal Atatürk.",
+                "desc-hacettepe": "The legendary campus where my student life takes place, with its lush green nature and massive valley."
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const elements = document.querySelectorAll('.lang-transition');
+            elements.forEach(el => el.style.opacity = 0);
+
+            setTimeout(() => {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        element.innerText = translations[lang][key];
+                    }
+                });
+                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
+                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
+                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
+                elements.forEach(el => el.style.opacity = 1);
+            }, 300);
         }
 
-
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            const form = e.target;
-            const data = new FormData(form);
-
-
-            fetch('https://formspree.io/f/xkjobydz', { 
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    alert('Mesajınız başarıyla iletildi!');
-                    form.reset(); 
-                    toggleContact(); 
-                } else {
-                    alert('Mesaj gönderilirken bir hata oluştu.');
-                }
-            }).catch(error => {
-                alert('Bir bağlantı hatası oluştu.');
-            });
-        });
+        document.getElementById('contactBtn').onclick = () => {
+            var popup = document.getElementById('contactPopup');
+            popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+        }
+        document.getElementById('closeContactBtn').onclick = () => {
+            document.getElementById('contactPopup').style.display = 'none';
+        }
     </script>
 </body>
 </html>

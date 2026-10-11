@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Projeler - Ramazan Aydın Kocaer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .project-detail { margin-top: 15px; border-top: 1px solid #dee2e6; padding-top: 15px; }
+        .project-detail h3 { color: #007bff; }
+        .project-detail ul { padding-left: 20px; color: #555; }
+        .project-detail li { margin-bottom: 8px; }
+        .lang a { cursor: pointer; }
+        .lang-transition { transition: opacity 0.3s ease-in-out; opacity: 1; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="lang">
+            <a onclick="changeLanguage('tr')">TR</a> | <a onclick="changeLanguage('en')">ENG</a>
+        </div>
+        <a href="index.html" class="lang-transition" data-i18n="nav-home">Ana Sayfa</a>
+        <a href="me.html" class="lang-transition" data-i18n="nav-about">Hakkımda</a>
+        <a href="projects.html" class="lang-transition" data-i18n="nav-projects">Projeler</a>
+        <a href="maps.html" class="lang-transition" data-i18n="nav-maps">Haritalar</a>
+    </nav>
+    
+    <div class="container fade-in">
+        <header class="card header-card">
+            <h1 style="margin: 0;" class="lang-transition" data-i18n="header-title">Akademik ve Bireysel Projeler</h1>
+        </header>
+
+        <!-- Proje 1 -->
+        <section id="dide" class="card">
+            <h2 class="lang-transition" data-i18n="p1-title">DiDE Projesi: Kampüs İçi Kirlilik Analizi</h2>
+            <div class="project-detail">
+                <h3 class="lang-transition" data-i18n="p1-sub">QGIS & PostgreSQL (PostGIS)</h3>
+                <p class="lang-transition" data-i18n="p1-desc">Hacettepe Üniversitesi Beytepe Kampüsü'nde gerçekleştirdiğim bu spatio-temporal (mekansal-zamansal) analiz projesinde, kampüs içindeki sigara izmariti kirliliğinin mekansal dağılımını inceledim.</p>
+                <ul>
+                    <li class="lang-transition" data-i18n="p1-b1"><strong>Veritabanı Yönetimi:</strong> PostgreSQL ve PostGIS kullanılarak mekansal sorgular (spatial joins), tampon bölge (buffering) ve point-in-polygon hesaplamaları gerçekleştirildi.</li>
+                    <li class="lang-transition" data-i18n="p1-b2"><strong>Görselleştirme ve Analiz:</strong> Elde edilen veriler QGIS ortamına aktarılarak yoğunluk haritaları oluşturuldu ve spatial-temporal clustering (mekansal-zamansal kümelenme) analizi yapıldı.</li>
+                    <li class="lang-transition" data-i18n="p1-b3"><strong>Sonuç:</strong> Kampüs içindeki yoğun kirlilik alanları tespit edilerek detaylı bir proje raporu haline getirildi.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Proje 2 -->
+        <section id="gee" class="card">
+            <h2 class="lang-transition" data-i18n="p2-title">İzmir Yamanlar Dağı Yangın Hasar Tespiti</h2>
+            <div class="project-detail">
+                <h3 class="lang-transition" data-i18n="p2-sub">Google Earth Engine (JavaScript & Python)</h3>
+                <p class="lang-transition" data-i18n="p2-desc">İzmir Yamanlar Dağı bölgesinde meydana gelen orman yangınının uydu görüntüleri üzerinden ekolojik hasar tespiti çalışması.</p>
+                <ul>
+                    <li class="lang-transition" data-i18n="p2-b1"><strong>Scripting:</strong> Google Earth Engine üzerinde hem JavaScript hem de Python scriptleri yazılarak Landsat/Sentinel uydu görüntüleri işlendi.</li>
+                    <li class="lang-transition" data-i18n="p2-b2"><strong>İndeks Hesaplamaları:</strong> Yangın öncesi ve sonrası görüntüler kullanılarak Normalized Burn Ratio (NBR) ve fark (dNBR) indeksleri hesaplandı.</li>
+                    <li class="lang-transition" data-i18n="p2-b3"><strong>Çıktı:</strong> Yangının etki alanı ve hasar derecesini gösteren haritalar oluşturulup proje raporuna entegre edildi.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Proje 3 (Bitirme Projesi) -->
+        <section id="sar" class="card">
+            <h2 class="lang-transition" data-i18n="p3-title">SAR Görüntüleri ile Gemi Tespiti (Bitirme Projesi)</h2>
+            <div class="project-detail">
+                <h3 class="lang-transition" data-i18n="p3-sub">Python & Sentinel-1</h3>
+                <p class="lang-transition" data-i18n="p3-desc">Lisans bitirme projem kapsamında Sentinel-1 SAR (Yapay Açıklıklı Radar) görüntülerini kullanarak otomatik gemi tespiti üzerine çalışıyorum. Şu an literatür taraması ve veri seti oluşturma gibi başlangıç aşamalarındayım.</p>
+                <ul>
+                    <li class="lang-transition" data-i18n="p3-b1"><strong>Odak Noktası:</strong> Görüntü işleme teknikleri ile deniz yüzeyindeki gemi silüetlerinin radar yansımalarından tespit edilmesi.</li>
+                    <li class="lang-transition" data-i18n="p3-b2"><strong>Mevcut Durum:</strong> İlgili algoritmaların araştırılması ve SAR verilerinin (Sentinel-1) Python ortamında ön işleme (preprocessing) adımlarının test edilmesi.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Yüzen İletişim Butonu ve Popup -->
+    <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
+    <div id="contactPopup" class="contact-popup-container">
+        <div class="contact-popup-header">
+            <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
+            <button id="closeContactBtn">&times;</button>
+        </div>
+        <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
+            <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
+            <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
+            <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
+            <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactBtn').onclick = function() {
+            var popup = document.getElementById('contactPopup');
+            popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+        }
+        document.getElementById('closeContactBtn').onclick = function() {
+            document.getElementById('contactPopup').style.display = 'none';
+        }
+
+        // Projeler Sayfası İçin Dil Çeviri Sözlüğü
+        const translations = {
+            "tr": {
+                "nav-home": "Ana Sayfa",
+                "nav-about": "Hakkımda",
+                "nav-projects": "Projeler",
+                "nav-maps": "Haritalar",
+                "header-title": "Akademik ve Bireysel Projeler",
+                "p1-title": "DiDE Projesi: Kampüs İçi Kirlilik Analizi",
+                "p1-sub": "QGIS & PostgreSQL (PostGIS)",
+                "p1-desc": "Hacettepe Üniversitesi Beytepe Kampüsü'nde gerçekleştirdiğim bu spatio-temporal (mekansal-zamansal) analiz projesinde, kampüs içindeki sigara izmariti kirliliğinin mekansal dağılımını inceledim.",
+                "p1-b1": "Veritabanı Yönetimi: PostgreSQL ve PostGIS kullanılarak mekansal sorgular (spatial joins), tampon bölge (buffering) ve point-in-polygon hesaplamaları gerçekleştirildi.",
+                "p1-b2": "Görselleştirme ve Analiz: Elde edilen veriler QGIS ortamına aktarılarak yoğunluk haritaları oluşturuldu ve spatial-temporal clustering (mekansal-zamansal kümelenme) analizi yapıldı.",
+                "p1-b3": "Sonuç: Kampüs içindeki yoğun kirlilik alanları tespit edilerek detaylı bir proje raporu haline getirildi.",
+                "p2-title": "İzmir Yamanlar Dağı Yangın Hasar Tespiti",
+                "p2-sub": "Google Earth Engine (JavaScript & Python)",
+                "p2-desc": "İzmir Yamanlar Dağı bölgesinde meydana gelen orman yangınının uydu görüntüleri üzerinden ekolojik hasar tespiti çalışması.",
+                "p2-b1": "Scripting: Google Earth Engine üzerinde hem JavaScript hem de Python scriptleri yazılarak Landsat/Sentinel uydu görüntüleri işlendi.",
+                "p2-b2": "İndeks Hesaplamaları: Yangın öncesi ve sonrası görüntüler kullanılarak Normalized Burn Ratio (NBR) ve fark (dNBR) indeksleri hesaplandı.",
+                "p2-b3": "Çıktı: Yangının etki alanı ve hasar derecesini gösteren haritalar oluşturulup proje raporuna entegre edildi.",
+                "p3-title": "SAR Görüntüleri ile Gemi Tespiti (Bitirme Projesi)",
+                "p3-sub": "Python & Sentinel-1",
+                "p3-desc": "Lisans bitirme projem kapsamında Sentinel-1 SAR (Yapay Açıklıklı Radar) görüntülerini kullanarak otomatik gemi tespiti üzerine çalışıyorum. Şu an literatür taraması ve veri seti oluşturma gibi başlangıç aşamalarındayım.",
+                "p3-b1": "Odak Noktası: Görüntü işleme teknikleri ile deniz yüzeyindeki gemi silüetlerinin radar yansımalarından tespit edilmesi.",
+                "p3-b2": "Mevcut Durum: İlgili algoritmaların araştırılması ve SAR verilerinin (Sentinel-1) Python ortamında ön işleme (preprocessing) adımlarının test edilmesi.",
+                "btn-contact": "Bana Ulaşın",
+                "pop-title": "Bana Ulaşın",
+                "pop-send": "Gönder",
+                "ph-name": "Adınız",
+                "ph-email": "E-posta Adresiniz",
+                "ph-message": "Mesajınız"
+            },
+            "en": {
+                "nav-home": "Home",
+                "nav-about": "About Me",
+                "nav-projects": "Projects",
+                "nav-maps": "Maps",
+                "header-title": "Academic and Personal Projects",
+                "p1-title": "DiDE Project: Campus Pollution Analysis",
+                "p1-sub": "QGIS & PostgreSQL (PostGIS)",
+                "p1-desc": "In this spatio-temporal analysis project conducted at Hacettepe University Beytepe Campus, I examined the spatial distribution of cigarette butt pollution within the campus.",
+                "p1-b1": "Database Management: Performed spatial queries (spatial joins), buffering, and point-in-polygon calculations using PostgreSQL and PostGIS.",
+                "p1-b2": "Visualization and Analysis: Exported the processed data to QGIS to create density maps and conducted spatial-temporal clustering analysis.",
+                "p1-b3": "Outcome: Identified heavily polluted areas within the campus and compiled the findings into a detailed project report.",
+                "p2-title": "Izmir Yamanlar Mountain Fire Damage Assessment",
+                "p2-sub": "Google Earth Engine (JavaScript & Python)",
+                "p2-desc": "Ecological damage assessment of the forest fire in the Izmir Yamanlar Mountain region using satellite imagery.",
+                "p2-b1": "Scripting: Processed Landsat/Sentinel satellite images by writing JavaScript and Python scripts in Google Earth Engine.",
+                "p2-b2": "Index Calculations: Calculated Normalized Burn Ratio (NBR) and difference (dNBR) indices using pre- and post-fire images.",
+                "p2-b3": "Outcome: Created maps showing the impact area and severity of the fire, which were integrated into the project report.",
+                "p3-title": "Ship Detection with SAR Imagery (Graduation Project)",
+                "p3-sub": "Python & Sentinel-1",
+                "p3-desc": "For my undergraduate graduation project, I am working on automated ship detection using Sentinel-1 SAR (Synthetic Aperture Radar) imagery. I am currently in the initial phases, such as literature review and dataset preparation.",
+                "p3-b1": "Focus Area: Detecting ship silhouettes on the sea surface from radar reflections using image processing techniques.",
+                "p3-b2": "Current Status: Researching relevant algorithms and testing the preprocessing steps of SAR data (Sentinel-1) in a Python environment.",
+                "btn-contact": "Contact Me",
+                "pop-title": "Contact Me",
+                "pop-send": "Send",
+                "ph-name": "Your Name",
+                "ph-email": "Your Email",
+                "ph-message": "Your Message"
+            }
+        };
+
+        // Animasyonlu Dili Değiştiren Fonksiyon
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('.lang-transition');
+            
+            elements.forEach(function(el) {
+                el.style.opacity = 0;
+            });
+
+            setTimeout(function() {
+                document.querySelectorAll('[data-i18n]').forEach(function(element) {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        // Eğer etiket "strong" veya "b" içeriyorsa innerHTML, düz metinse innerText kullanıyoruz.
+                        if(element.innerHTML.includes('<strong')) {
+                            element.innerHTML = translations[lang][key].replace(/(Veritabanı Yönetimi|Görselleştirme ve Analiz|Sonuç|Scripting|İndeks Hesaplamaları|Çıktı|Odak Noktası|Mevcut Durum|Database Management|Visualization and Analysis|Outcome|Index Calculations|Focus Area|Current Status):/, "<strong>$1:</strong>");
+                        } else {
+                            element.innerText = translations[lang][key];
+                        }
+                    }
+                });
+                
+                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
+                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
+                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
+
+                elements.forEach(function(el) {
+                    el.style.opacity = 1;
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>

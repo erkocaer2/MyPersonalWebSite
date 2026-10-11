@@ -3,145 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kullandığım Teknolojiler - Ramazan Aydın Kocaer</title>
+    <title>Teknolojiler - Ramazan Aydın Kocaer</title>
     <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const savedLang = localStorage.getItem('preferredLang') || 'tr';
+        document.documentElement.setAttribute('data-lang', savedLang);
+    </script>
 </head>
-<body>
+<body data-lang="tr">
     <header>
         <nav>
-            <a href="index.html">Hakkımda</a>
-            <a href="technologies.html">Teknolojiler</a>
-            <a href="maps.html">Yaşadığım Şehirler ve Ankara</a>
+            <a href="index.html">
+                <span class="tr">Hakkımda</span><span class="en">About Me</span>
+            </a>
+            <a href="technologies.html">
+                <span class="tr">Teknolojiler</span><span class="en">Technologies</span>
+            </a>
+            <a href="maps.html">
+                <span class="tr">Yaşadığım Şehirler ve Ankara</span><span class="en">Cities I Lived & Ankara</span>
+            </a>
+            <button class="lang-toggle" onclick="toggleLanguage()">🇹🇷 TR | 🇬🇧 EN</button>
         </nav>
     </header>
     
     <main class="container">
-        <h1 class="animated-title">Teknolojiler ve Yetenekler</h1>
-        <p>Aşağıdaki tabloda eğitimim ve projelerim boyunca kullandığım temel teknolojileri görebilirsiniz:</p>
+        <h1 class="animated-title">
+            <span class="tr">Teknolojiler ve Yetenekler</span>
+            <span class="en">Technologies and Skills</span>
+        </h1>
+        <p>
+            <span class="tr">Aşağıdaki tabloda eğitimim ve projelerim boyunca kullandığım temel teknolojileri görebilirsiniz:</span>
+            <span class="en">In the table below, you can see the core technologies I have used throughout my education and projects:</span>
+        </p>
         
         <table class="tech-table">
             <thead>
                 <tr>
-                    <th>Teknoloji</th>
-                    <th>Kullanım Alanı</th>
+                    <th>
+                        <span class="tr">Teknoloji</span><span class="en">Technology</span>
+                    </th>
+                    <th>
+                        <span class="tr">Kullanım Alanı</span><span class="en">Use Case</span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-
                 <tr>
                     <td>
                         <img src="images/python.webp" alt="Python Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>Python</strong>
                     </td>
-                    <td>Veri analizi, coğrafi analizler ve script yazımı.</td>
+                    <td>
+                        <span class="tr">Veri analizi, coğrafi analizler ve script yazımı.</span>
+                        <span class="en">Data analysis, spatial analysis, and scripting.</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/qgis.webp" alt="QGIS Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>QGIS & PostGIS</strong>
                     </td>
-                    <td>Mekansal analiz, açık kaynak CBS ve veritabanı yönetimi.</td>
+                    <td>
+                        <span class="tr">Mekansal analiz, açık kaynak CBS ve veritabanı yönetimi.</span>
+                        <span class="en">Spatial analysis, open-source GIS, and database management.</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/css.jpg" alt="CSS Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>HTML & CSS</strong>
                     </td>
-                    <td>Web sayfası tasarımı, yapılandırması ve görselleştirmesi.</td>
+                    <td>
+                        <span class="tr">Web sayfası tasarımı, yapılandırması ve görselleştirmesi.</span>
+                        <span class="en">Web page design, structuring, and visualization.</span>
+                    </td>
                 </tr>
-                
                 <tr>
                     <td>
                         <img src="images/osm.png" alt="OSM Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
-                        <strong>OpenStreetMap</strong>
+                        <strong>OpenStreetMap (OSM)</strong>
                     </td>
-                    <td>Açık kaynak harita verisi sağlama ve altlık harita kullanımı.</td>
+                    <td>
+                        <span class="tr">Açık kaynak harita verisi sağlama ve altlık harita kullanımı.</span>
+                        <span class="en">Providing open-source map data and basemap usage.</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/leaflet.webp" alt="Leaflet Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>Leaflet</strong>
                     </td>
-                    <td>Etkileşimli ve hafif web haritaları (Web GIS) oluşturma.</td>
+                    <td>
+                        <span class="tr">Etkileşimli ve hafif web haritaları (Web GIS) oluşturma.</span>
+                        <span class="en">Creating interactive and lightweight web maps (Web GIS).</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/openlayers.svg" alt="OpenLayers Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>OpenLayers</strong>
                     </td>
-                    <td>Gelişmiş ve kapsamlı mekansal veri sunumu ve analizi.</td>
+                    <td>
+                        <span class="tr">Gelişmiş ve kapsamlı mekansal veri sunumu ve analizi.</span>
+                        <span class="en">Advanced and comprehensive spatial data presentation and analysis.</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/vscode.webp" alt="VS Code Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>VS Code</strong>
                     </td>
-                    <td>Proje geliştirme, kod yazımı ve versiyon kontrol (Git) süreçleri.</td>
+                    <td>
+                        <span class="tr">Proje geliştirme, kod yazımı ve versiyon kontrol (Git) süreçleri.</span>
+                        <span class="en">Project development, coding, and version control (Git) processes.</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/anaconda.jpg" alt="Anaconda Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>Anaconda</strong>
                     </td>
-                    <td>Python kütüphaneleri, sanal ortam yönetimi ve veri bilimi araçları.</td>
+                    <td>
+                        <span class="tr">Python kütüphaneleri, sanal ortam yönetimi ve veri bilimi araçları.</span>
+                        <span class="en">Python libraries, virtual environment management, and data science tools.</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <img src="images/pgadmin.png" alt="pgAdmin Logo" width="35" style="vertical-align: middle; margin-right: 12px;">
                         <strong>pgAdmin</strong>
                     </td>
-                    <td>PostgreSQL veritabanı yönetimi ve mekansal (spatial) sorgulamalar.</td>
+                    <td>
+                        <span class="tr">PostgreSQL veritabanı yönetimi ve mekansal (spatial) sorgulamalar.</span>
+                        <span class="en">PostgreSQL database management and spatial queries.</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </main>
 
+ <!-- Bana Ulaşın Widget'ı -->
     <div class="contact-widget">
         <div class="contact-popup" id="contactPopup">
-            <h3>Bana Ulaşın <button class="close-btn" onclick="toggleContact()">×</button></h3>
-            
-   
+            <h3>
+                <span class="tr">Bana Ulaşın</span><span class="en">Contact Me</span>
+                <button class="close-btn" onclick="toggleContact()">×</button>
+            </h3>
             <form id="contactForm">
-                <input type="text" name="isim" placeholder="İsim Soyisim" required>
-                <input type="email" name="email" placeholder="E-posta Adresi" required>
-                <textarea name="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea>
-                <button type="submit">Gönder</button>
+                <input type="text" name="isim" placeholder="İsim Soyisim / Full Name" required>
+                <input type="email" name="email" placeholder="E-posta / Email" required>
+                <textarea name="mesaj" placeholder="Mesajınız... / Your message..." required></textarea>
+                <button type="submit">
+                    <span class="tr">Gönder</span><span class="en">Send</span>
+                </button>
             </form>
-
         </div>
-
-        <button class="contact-btn" onclick="toggleContact()">💬</button>
+        <button class="contact-btn" onclick="toggleContact()">
+            💬 <span class="tr">Bana Ulaşın</span><span class="en">Contact Me</span>
+        </button>
     </div>
 
-
     <script>
-        function toggleContact() {
-            const popup = document.getElementById('contactPopup');
-            popup.classList.toggle('show');
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('data-lang') === 'en' ? 'tr' : 'en';
+            body.setAttribute('data-lang', currentLang);
+            localStorage.setItem('preferredLang', currentLang);
         }
 
-  
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLang') || 'tr';
+            document.body.setAttribute('data-lang', savedLang);
+        });
+
+        function toggleContact() {
+            document.getElementById('contactPopup').classList.toggle('show');
+        }
+
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Sayfanın yenilenmesini engeller
-            
+            e.preventDefault(); 
             const form = e.target;
             const data = new FormData(form);
 
-       
             fetch('https://formspree.io/f/xkjobydz', { 
                 method: 'POST',
                 body: data,
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    alert('Mesajınız başarıyla iletildi!');
+                    const currentLang = document.body.getAttribute('data-lang');
+                    if(currentLang === 'en') {
+                        alert('Your message has been sent successfully!');
+                    } else {
+                        alert('Mesajınız başarıyla iletildi!');
+                    }
                     form.reset(); 
                     toggleContact(); 
                 } else {
-                    alert('Mesaj gönderilirken bir hata oluştu.');
+                    alert('Oops! Error / Hata.');
                 }
             }).catch(error => {
-                alert('Bir bağlantı hatası oluştu.');
+                alert('Oops! Connection error / Bağlantı hatası.');
             });
         });
     </script>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Hakkımda - Ramazan Aydın Kocaer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .lang a {
+            cursor: pointer;
+        }
+        .lang-transition {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+        }
+        
+        /* Eğitim Hayatım Listesi Tasarımı */
+        .education-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .education-list li {
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #2b2d30;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease-in-out;
+        }
+        .education-list li:hover {
+            transform: translateX(5px);
+        }
+        .edu-date {
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .edu-title {
+            font-weight: 600;
+            font-size: 18px;
+            color: #2b2d30;
+            margin-bottom: 5px;
+        }
+        .edu-desc {
+            margin: 0;
+            color: #555;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="lang">
+            <a onclick="changeLanguage('tr')">TR</a> | <a onclick="changeLanguage('en')">ENG</a>
+        </div>
+        <a href="index.html" class="lang-transition" data-i18n="nav-home">Ana Sayfa</a>
+        <a href="me.html" class="lang-transition" data-i18n="nav-about">Hakkımda</a>
+        <a href="projects.html" class="lang-transition" data-i18n="nav-projects">Projeler</a>
+        <a href="maps.html" class="lang-transition" data-i18n="nav-maps">Haritalar</a>
+    </nav>
+    
+    <div class="container fade-in">
+        <!-- Profil Fotoğrafı ve Kişisel Bilgiler -->
+        <section class="card profile-wrapper">
+            <img src="img/pp.jpeg" alt="Ramazan Aydın Kocaer" class="profile-img">
+            <div>
+                <h2 class="lang-transition" data-i18n="about-title">Hakkımda</h2>
+                <p class="lang-transition" data-i18n="about-p1">Merhaba, ben Ramazan. Hacettepe Üniversitesi Harita Mühendisliği bölümünde lisans eğitimime devam ediyorum. Python, MATLAB, PostgreSQL ve web teknolojileri üzerine çalışıyorum.</p>
+                <p class="lang-transition" data-i18n="about-p2">Akademik olarak jeodezi ve uydu tabanlı analizler ilgi alanlarım arasındadır.</p>
+                <p class="lang-transition" data-i18n="about-p3">Boş zamanlarımda kedimle ilgilenmeyi, arkadaşlarımla sosyalleşmeyi ve oyun oynamayı severim.</p>
+            </div>
+        </section>
+
+        <!-- Eğitim Hayatım Bölümü -->
+        <section class="card">
+            <h2 class="lang-transition" data-i18n="edu-title">Eğitim Hayatım</h2>
+            <ul class="education-list">
+                <li>
+                    <div class="edu-date lang-transition" data-i18n="edu-date-1">2021 - Devam Ediyor</div>
+                    <div class="edu-title lang-transition" data-i18n="edu-hacettepe-title">Hacettepe Üniversitesi</div>
+                    <div class="edu-desc lang-transition" data-i18n="edu-hacettepe-desc">Harita Mühendisliği (Lisans)</div>
+                </li>
+                <li>
+                    <div class="edu-date">2019 - 2021</div>
+                    <div class="edu-title lang-transition" data-i18n="edu-konya-title">Konya Teknik Üniversitesi</div>
+                    <div class="edu-desc lang-transition" data-i18n="edu-konya-desc">Harita ve Kadastro (Önlisans)</div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Yüzen İletişim Butonu ve Popup -->
+    <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
+    <div id="contactPopup" class="contact-popup-container">
+        <div class="contact-popup-header">
+            <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
+            <button id="closeContactBtn">&times;</button>
+        </div>
+        <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
+            <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
+            <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
+            <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
+            <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactBtn').onclick = function() {
+            var popup = document.getElementById('contactPopup');
+            popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+        }
+        document.getElementById('closeContactBtn').onclick = function() {
+            document.getElementById('contactPopup').style.display = 'none';
+        }
+
+        // Dil Çeviri Sözlüğü (Hakkımda Sayfası İçin)
+        const translations = {
+            "tr": {
+                "nav-home": "Ana Sayfa",
+                "nav-about": "Hakkımda",
+                "nav-projects": "Projeler",
+                "nav-maps": "Haritalar",
+                "about-title": "Hakkımda",
+                "about-p1": "Merhaba, ben Ramazan. Hacettepe Üniversitesi Harita Mühendisliği bölümünde lisans eğitimime devam ediyorum. Python, MATLAB, PostgreSQL ve web teknolojileri üzerine çalışıyorum.",
+                "about-p2": "Akademik olarak jeodezi ve uydu tabanlı analizler ilgi alanlarım arasındadır.",
+                "about-p3": "Boş zamanlarımda kedimle ilgilenmeyi, arkadaşlarımla sosyalleşmeyi ve oyun oynamayı severim.",
+                "edu-title": "Eğitim Hayatım",
+                "edu-date-1": "2021 - Devam Ediyor",
+                "edu-hacettepe-title": "Hacettepe Üniversitesi",
+                "edu-hacettepe-desc": "Harita Mühendisliği (Lisans)",
+                "edu-konya-title": "Konya Teknik Üniversitesi",
+                "edu-konya-desc": "Harita ve Kadastro (Önlisans)",
+                "btn-contact": "Bana Ulaşın",
+                "pop-title": "Bana Ulaşın",
+                "pop-send": "Gönder",
+                "ph-name": "Adınız",
+                "ph-email": "E-posta Adresiniz",
+                "ph-message": "Mesajınız"
+            },
+            "en": {
+                "nav-home": "Home",
+                "nav-about": "About Me",
+                "nav-projects": "Projects",
+                "nav-maps": "Maps",
+                "about-title": "About Me",
+                "about-p1": "Hello, I'm Ramazan. I am continuing my undergraduate studies in Geomatics Engineering at Hacettepe University. I work with Python, MATLAB, PostgreSQL, and web technologies.",
+                "about-p2": "Academically, geodesy and satellite-based analyses are among my interests.",
+                "about-p3": "In my free time, I enjoy taking care of my cat, socializing with my friends, and playing games.",
+                "edu-title": "My Education",
+                "edu-date-1": "2021 - Present",
+                "edu-hacettepe-title": "Hacettepe University",
+                "edu-hacettepe-desc": "Geomatics Engineering (Bachelor's Degree)",
+                "edu-konya-title": "Konya Technical University",
+                "edu-konya-desc": "Mapping and Cadastre (Associate Degree)",
+                "btn-contact": "Contact Me",
+                "pop-title": "Contact Me",
+                "pop-send": "Send",
+                "ph-name": "Your Name",
+                "ph-email": "Your Email",
+                "ph-message": "Your Message"
+            }
+        };
+
+        // Animasyonlu Dili Değiştiren Fonksiyon
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('.lang-transition');
+            
+            elements.forEach(function(el) {
+                el.style.opacity = 0;
+            });
+
+            setTimeout(function() {
+                document.querySelectorAll('[data-i18n]').forEach(function(element) {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        element.innerText = translations[lang][key];
+                    }
+                });
+                
+                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
+                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
+                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
+
+                elements.forEach(function(el) {
+                    el.style.opacity = 1;
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>

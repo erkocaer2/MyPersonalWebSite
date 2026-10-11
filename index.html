@@ -2,94 +2,213 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ana Sayfa - Ramazan Aydın Kocaer</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .tech-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .tech-item {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            transition: transform 0.3s;
+        }
+        .tech-item:hover {
+            transform: scale(1.1);
+        }
+        .tech-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+        .clickable-row {
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .clickable-row:hover {
+            background-color: #e9ecef;
+        }
+        .clickable-row td:first-child {
+            color: #007bff;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .clickable-row:hover td:first-child {
+            color: #0056b3;
+        }
+        .lang a {
+            cursor: pointer;
+        }
+        /* Dilde yumuşak geçiş için eklendi */
+        .lang-transition {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html">Hakkımda</a>
-            <a href="technologies.html">Teknolojiler</a>
-            <a href="maps.html">Yaşadığım Şehirler ve Ankara</a>
-        </nav>
-    </header>
-
-    <main class="container">
-        <h1 class="animated-title">Merhaba, Ben Ramazan Aydın Kocaer!</h1>
-        
-        <img src="images/pp.jpeg" alt="Ramazan Aydın Kocaer Profil Fotoğrafı" class="profile-pic">
-        
-        <p>26 yaşındayım. Eğitimime Hacettepe Üniversitesi Harita Mühendisliği bölümünde devam ediyorum. Bu web sayfasını, GMT458 Web GIS dersi projem kapsamında hazırladım.</p>
-        
-        <div class="info-card">
-            <h2>Eğitim Geçmişim</h2>
-            <ul class="education-list">
-                <li><strong>2021 - Devam Ediyor:</strong> Hacettepe Üniversitesi - Harita Mühendisliği</li>
-                <li><strong>2019 - 2021:</strong> Konya Teknik Üniversitesi - Harita ve Kadastro</li>
-            </ul>
-            
-            <h2>
-                <img src="images/locpin.png" alt="Konum Pini" style="width: 28px; vertical-align: middle; margin-right: 8px; padding-bottom: 4px;">
-                Bulunduğum Şehirler
-            </h2>
-            <p style="margin-bottom: 20px; font-size: 15px;">Bugüne kadar yaşadığım şehirler:</p>
-            
-            <div class="city-tags">
-                <span class="city-tag">Konya</span>
-                <span class="city-tag">Karaman</span>
-                <span class="city-tag">Ankara</span>
-
+    <nav>
+        <div class="lang">
+            <a onclick="changeLanguage('tr')">TR</a> | <a onclick="changeLanguage('en')">ENG</a>
         </div>
-    </main>
+        <a href="index.html" class="lang-transition" data-i18n="nav-home">Ana Sayfa</a>
+        <a href="me.html" class="lang-transition" data-i18n="nav-about">Hakkımda</a>
+        <a href="projects.html" class="lang-transition" data-i18n="nav-projects">Projeler</a>
+        <a href="maps.html" class="lang-transition" data-i18n="nav-maps">Haritalar</a>
+    </nav>
+    
+    <div class="container fade-in">
+        <header class="card header-card">
+            <img src="img/pp.jpeg" alt="Ramazan Aydın Kocaer" class="profile-img">
+            <div>
+                <h1>Ramazan Aydın Kocaer</h1>
+                <p class="lang-transition" data-i18n="header-desc">Hacettepe Üniversitesi - Harita Mühendisliği (2210674066)</p>
+            </div>
+        </header>
 
-    <div class="contact-widget">
-        <div class="contact-popup" id="contactPopup">
-            <h3>Bana Ulaşın <button class="close-btn" onclick="toggleContact()">×</button></h3>
-            
+        <section class="card">
+            <h2 class="lang-transition" data-i18n="sec-proj-title">Projeler</h2>
+            <table>
+                <tr>
+                    <th class="lang-transition" data-i18n="th-proj">Proje/Araç</th>
+                    <th class="lang-transition" data-i18n="th-desc">Açıklama</th>
+                </tr>
+                <tr class="clickable-row" onclick="window.location.href='projects.html#dide';">
+                    <td class="lang-transition" data-i18n="proj1-title">QGIS & PostGIS (DiDE Projesi)</td>
+                    <td class="lang-transition" data-i18n="proj1-desc">Kampüs içi sigara izmariti kirliliği mekansal analizi. Proje detayları ve metodoloji için tıklayın.</td>
+                </tr>
+                <tr class="clickable-row" onclick="window.location.href='projects.html#gee';">
+                    <td class="lang-transition" data-i18n="proj2-title">Google Earth Engine Analizi</td>
+                    <td class="lang-transition" data-i18n="proj2-desc">İzmir Yamanlar Dağı orman yangını hasar tespiti (NBR/dNBR). Rapor detayları için tıklayın.</td>
+                </tr>
+            </table>
+        </section>
 
-            <form id="contactForm">
-                <input type="text" name="isim" placeholder="İsim Soyisim" required>
-                <input type="email" name="email" placeholder="E-posta Adresi" required>
-                <textarea name="mesaj" placeholder="Mesajınızı buraya yazın..." required></textarea>
-                <button type="submit">Gönder</button>
-            </form>
-
-        </div>
-
-        <button class="contact-btn" onclick="toggleContact()">💬</button>
+        <section class="card">
+            <h2 class="lang-transition" data-i18n="sec-tech-title">Eğitim Hayatım Boyunca Kullandığım Teknolojiler</h2>
+            <div class="tech-container">
+                <div class="tech-item"><img src="img/python.webp" alt="Python"><div>Python</div></div>
+                <div class="tech-item"><img src="img/anaconda.jpg" alt="Anaconda"><div>Anaconda</div></div>
+                <div class="tech-item"><img src="img/pgadmin.png" alt="pgAdmin"><div>pgAdmin</div></div>
+                <div class="tech-item"><img src="img/qgis.webp" alt="QGIS"><div>QGIS</div></div>
+                <div class="tech-item"><img src="img/vscode.webp" alt="VS Code"><div>VS Code</div></div>
+                <div class="tech-item"><img src="img/css.jpg" alt="CSS"><div>CSS</div></div>
+                <div class="tech-item"><img src="img/leaflet.webp" alt="Leaflet"><div>Leaflet</div></div>
+                <div class="tech-item"><img src="img/osm.png" alt="OSM"><div>OSM</div></div>
+                <div class="tech-item"><img src="img/openlayers.svg" alt="OpenLayers"><div>OpenLayers</div></div>
+            </div>
+        </section>
     </div>
 
+    <!-- Yüzen İletişim Butonu ve Popup -->
+    <button id="contactBtn" class="floating-btn lang-transition" data-i18n="btn-contact">Bana Ulaşın</button>
+    <div id="contactPopup" class="contact-popup-container">
+        <div class="contact-popup-header">
+            <h3 class="lang-transition" data-i18n="pop-title">Bana Ulaşın</h3>
+            <button id="closeContactBtn">&times;</button>
+        </div>
+        <form action="https://formspree.io/f/BURAYA_LINKINI_YAPISTIR" method="POST">
+            <input type="text" id="formName" name="name" class="lang-transition" placeholder="Adınız" required>
+            <input type="email" id="formEmail" name="email" class="lang-transition" placeholder="E-posta Adresiniz" required>
+            <textarea id="formMessage" name="message" class="lang-transition" rows="4" placeholder="Mesajınız" required></textarea>
+            <button type="submit" class="lang-transition" data-i18n="pop-send">Gönder</button>
+        </form>
+    </div>
 
     <script>
-        function toggleContact() {
-            const popup = document.getElementById('contactPopup');
-            popup.classList.toggle('show');
+        // İletişim Formu Aç/Kapat Mantığı
+        document.getElementById('contactBtn').onclick = function() {
+            var popup = document.getElementById('contactPopup');
+            popup.style.display = (popup.style.display === 'flex') ? 'none' : 'flex';
+        }
+        document.getElementById('closeContactBtn').onclick = function() {
+            document.getElementById('contactPopup').style.display = 'none';
         }
 
+        // Dil Çeviri Sözlüğü
+        const translations = {
+            "tr": {
+                "nav-home": "Ana Sayfa",
+                "nav-about": "Hakkımda",
+                "nav-projects": "Projeler",
+                "nav-maps": "Haritalar",
+                "header-desc": "Hacettepe Üniversitesi - Harita Mühendisliği (2210674066)",
+                "sec-proj-title": "Projeler",
+                "th-proj": "Proje/Araç",
+                "th-desc": "Açıklama",
+                "proj1-title": "QGIS & PostGIS (DiDE Projesi)",
+                "proj1-desc": "Kampüs içi sigara izmariti kirliliği mekansal analizi. Proje detayları ve metodoloji için tıklayın.",
+                "proj2-title": "Google Earth Engine Analizi",
+                "proj2-desc": "İzmir Yamanlar Dağı orman yangını hasar tespiti (NBR/dNBR). Rapor detayları için tıklayın.",
+                "sec-tech-title": "Eğitim Hayatım Boyunca Kullandığım Teknolojiler",
+                "btn-contact": "Bana Ulaşın",
+                "pop-title": "Bana Ulaşın",
+                "pop-send": "Gönder",
+                "ph-name": "Adınız",
+                "ph-email": "E-posta Adresiniz",
+                "ph-message": "Mesajınız"
+            },
+            "en": {
+                "nav-home": "Home",
+                "nav-about": "About Me",
+                "nav-projects": "Projects",
+                "nav-maps": "Maps",
+                "header-desc": "Hacettepe University - Geomatics Engineering (2210674066)",
+                "sec-proj-title": "Projects",
+                "th-proj": "Project/Tool",
+                "th-desc": "Description",
+                "proj1-title": "QGIS & PostGIS (DiDE Project)",
+                "proj1-desc": "Spatial analysis of cigarette butt pollution on campus. Click for project details and methodology.",
+                "proj2-title": "Google Earth Engine Analysis",
+                "proj2-desc": "Izmir Yamanlar Mountain forest fire damage assessment (NBR/dNBR). Click for report details.",
+                "sec-tech-title": "Technologies I Have Used Throughout My Education",
+                "btn-contact": "Contact Me",
+                "pop-title": "Contact Me",
+                "pop-send": "Send",
+                "ph-name": "Your Name",
+                "ph-email": "Your Email",
+                "ph-message": "Your Message"
+            }
+        };
 
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault(); 
+        // Animasyonlu Dili Değiştiren Fonksiyon
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('.lang-transition');
             
-            const form = e.target;
-            const data = new FormData(form);
-
-            fetch('https://formspree.io/f/xkjobydz', { 
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    alert('Mesajınız başarıyla iletildi!');
-                    form.reset(); 
-                    toggleContact(); 
-                } else {
-                    alert('Mesaj gönderilirken bir hata oluştu.');
-                }
-            }).catch(error => {
-                alert('Bir bağlantı hatası oluştu.');
+            // Tüm yazıları transparan yap
+            elements.forEach(function(el) {
+                el.style.opacity = 0;
             });
-        });
+
+            // Animasyon süresi (300ms) kadar bekleyip yazıları değiştir ve geri göster
+            setTimeout(function() {
+                // Metinleri Değiştir
+                document.querySelectorAll('[data-i18n]').forEach(function(element) {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        element.innerText = translations[lang][key];
+                    }
+                });
+                
+                // Form Alanlarını (Placeholder) Değiştir
+                document.getElementById('formName').placeholder = translations[lang]['ph-name'];
+                document.getElementById('formEmail').placeholder = translations[lang]['ph-email'];
+                document.getElementById('formMessage').placeholder = translations[lang]['ph-message'];
+
+                // Yeni yazılarla birlikte opaklığı tekrar 1 yap (Geri getir)
+                elements.forEach(function(el) {
+                    el.style.opacity = 1;
+                });
+            }, 300);
+        }
     </script>
 </body>
 </html>
