@@ -32,8 +32,8 @@ The project integrates two different web mapping libraries, addressing specific 
 
 In accordance with the assignment guidelines, AI (Gemini) was utilized as a coding assistant and tutor during the development process.
 
-* **Estimated Total AI Usage:** ~3-4 hours.
-* **Specific Learnings & Implementations via AI:**
+* **Estimated Total AI Usage:** 2-3~ hours.
+* **Specific Learnings & Implemen.tations via AI:**
   * Implementing OpenLayers `ol.source.Cluster` and adjusting `hitTolerance` for accurate click detection on clustered features.
   * Writing an AJAX `fetch` request to handle Formspree form submissions without page redirection.
   * Using browser `localStorage` to keep the user's language preference (TR/EN) persistent across multiple HTML pages.
