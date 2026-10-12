@@ -7,8 +7,8 @@ function showPanel(placeData) {
     var imgEl = document.getElementById('panelImg');
     imgEl.src = placeData.img;
 
-    titleEl.style.opacity = 0;
-    descEl.style.opacity = 0;
+    titleEl.style.opacity = 1;
+    descEl.style.opacity = 1;
     
     setTimeout(() => {
         titleEl.innerText = translations[currentLang][placeData.titleKey];
