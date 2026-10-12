@@ -530,3 +530,14 @@ body.dark-mode .location-buttons button:hover {
     background-color: #4da3ff !important;
     color: #121212 !important;
 }
+/* Yan Paneli Tek Parça (Bütün) Haline Getirmek İçin */
+body.dark-mode #sidePanel,
+body.dark-mode .side-panel {
+    background-color: #1e1e1e !important; /* Tüm panelin ana rengi */
+}
+
+body.dark-mode .side-panel-content {
+    background-color: transparent !important; /* İç kutunun kendi rengini iptal et */
+    box-shadow: none !important; /* O aradaki kesik çizgiyi yaratan gölgeyi kaldır */
+    border: none !important; /* Varsa kenarlıkları kaldır */
+}
