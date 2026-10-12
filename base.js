@@ -4,6 +4,7 @@ function showPanel(placeData) {
     var titleEl = document.getElementById('panelTitle');
     var descEl = document.getElementById('panelDesc');
     var imgEl = document.getElementById('panelImg');
+    imgEl.src = placeData.img;
 
     titleEl.style.opacity = 0;
     descEl.style.opacity = 0;
