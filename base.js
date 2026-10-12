@@ -1,5 +1,6 @@
 
 function showPanel(placeData) {
+    console.log("Gelen Veri:", placeData);
     var panel = document.getElementById('sidePanel');
     var titleEl = document.getElementById('panelTitle');
     var descEl = document.getElementById('panelDesc');
