@@ -1,6 +1,4 @@
-// ==========================================
-// ORTAK PANEL FONKSİYONLARI
-// ==========================================
+
 function showPanel(placeData) {
     var panel = document.getElementById('sidePanel');
     var titleEl = document.getElementById('panelTitle');
@@ -32,9 +30,7 @@ window.closePanel = function() {
     document.body.classList.remove('panel-open');
 }
 
-// ==========================================
-// 1. HARİTA (Leaflet): Mutlaka Görülmesi Gereken Şehirler (Clustering Eklendi)
-// ==========================================
+
 var worldBounds = [
     [-90, -180], 
     [90, 180]    
@@ -58,14 +54,14 @@ var cityData = {
     'antalya': { coords: [36.8969, 30.7133], titleKey: "loc-antalya", descKey: "desc-antalya", img: "img/antalya.jpeg" },
     'ardahan': { coords: [41.1105, 42.7022], titleKey: "loc-ardahan", descKey: "desc-ardahan", img: "img/ardahan.webp" },
     'balikesir': { coords: [39.6484, 27.8826], titleKey: "loc-balikesir", descKey: "desc-balikesir", img: "img/balikesir.jpg" },
-    'canakkale': { coords: [40.1553, 26.4127], titleKey: "loc-canakkale", descKey: "desc-canakkale", img: "img/çanakkale.jpg" },
+    'canakkale': { coords: [40.1553, 26.4127], titleKey: "loc-canakkale", descKey: "desc-canakkale", img: "img/canakkale.jpg" },
     'istanbul': { coords: [41.0082, 28.9784], titleKey: "loc-istanbul", descKey: "desc-istanbul", img: "img/istanbul.webp" },
     'izmir': { coords: [38.4192, 27.1287], titleKey: "loc-izmir", descKey: "desc-izmir", img: "img/izmir.jpg" },
     'mersin': { coords: [36.8121, 34.6415], titleKey: "loc-mersin", descKey: "desc-mersin", img: "img/mersin.jpg" },
     'trabzon': { coords: [41.0027, 39.7168], titleKey: "loc-trabzon", descKey: "desc-trabzon", img: "img/trabzon.jpg" }
 };
 
-// YENİ: Normal layerGroup yerine MarkerClusterGroup kullanıyoruz
+
 var markersGroup = L.markerClusterGroup();
 
 Object.keys(cityData).forEach(function(key) {
@@ -75,7 +71,7 @@ Object.keys(cityData).forEach(function(key) {
     markersGroup.addLayer(marker);
 });
 
-// Kümeyi haritaya kalıcı olarak ekliyoruz (uzaklaşınca kaybolmayacak, sayıya dönüşecek)
+
 lMap.addLayer(markersGroup);
 
 window.goToCity = function(key) {
@@ -85,9 +81,6 @@ window.goToCity = function(key) {
 };
 
 
-// ==========================================
-// 2. HARİTA (OpenLayers): Ankara'da Gezilecek Yerler (Clustering Özellikli)
-// ==========================================
 var ankaraData = {
     'anitkabir': { coords: [32.8369, 39.9255], titleKey: "loc-anitkabir", descKey: "desc-anitkabir", img: "img/anitkabir.png", type: "historical" },
     'kale': { coords: [32.8655, 39.9414], titleKey: "loc-kale", descKey: "desc-kale", img: "img/ankarakalesi.jpg", type: "historical" },
@@ -96,7 +89,7 @@ var ankaraData = {
     'ankamall': { coords: [32.8315, 39.9507], titleKey: "loc-ankamall", descKey: "desc-ankamall", img: "img/ankamall.jpg", type: "mall" },
     'armada': { coords: [32.8094, 39.9125], titleKey: "loc-armada", descKey: "desc-armada", img: "img/armada.jpg", type: "mall" },
     'kizilay': { coords: [32.8541, 39.9208], titleKey: "loc-kizilay", descKey: "desc-kizilay", img: "img/kizilay.jpeg", type: "social" },
-    '7cadde': { coords: [32.8225, 39.9192], titleKey: "loc-7cadde", descKey: "desc-7cadde", img: "img/7. cadde.webp", type: "social" },
+    '7cadde': { coords: [32.8225, 39.9192], titleKey: "loc-7cadde", descKey: "desc-7cadde", img: "img/7.cadde.webp", type: "social" },
     'sakarya': { coords: [32.8550, 39.9215], titleKey: "loc-sakarya", descKey: "desc-sakarya", img: "img/sakaryacaddesi.jpg", type: "social" },
     'tunali': { coords: [32.8601, 39.9077], titleKey: "loc-tunali", descKey: "desc-tunali", img: "img/tunali.jpg", type: "social" },
     'goksu': { coords: [32.6288, 39.9806], titleKey: "loc-goksu", descKey: "desc-goksu", img: "img/goksuparki.jpg", type: "social" },
