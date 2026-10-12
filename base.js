@@ -9,6 +9,15 @@ function showPanel(placeData) {
 
     titleEl.style.opacity = 1;
     descEl.style.opacity = 1;
+
+titleEl.setAttribute('data-i18n', placeData.descKey + "-title"); 
+descEl.setAttribute('data-i18n', placeData.descKey);
+
+
+if (typeof changeLanguage === "function") {
+    var activeLang = (typeof window.currentLang !== 'undefined') ? window.currentLang : 'tr';
+    changeLanguage(activeLang);
+}
     
     setTimeout(() => {
         titleEl.innerText = translations[currentLang][placeData.titleKey];
